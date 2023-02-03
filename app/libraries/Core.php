@@ -2,7 +2,7 @@
 
 class Core {
     // properties
-    public $currentController = '';
+    public $currentController = 'example';
     public $currentMethod = 'index';
     public $params = [];
 
@@ -45,7 +45,7 @@ class Core {
     
             return $url;
         } else {
-            return array('', 'index');
+            return array('example', 'index');
         }
         
     }
