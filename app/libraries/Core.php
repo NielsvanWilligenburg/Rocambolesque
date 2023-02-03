@@ -2,7 +2,7 @@
 
 class Core {
     // properties
-    public $currentController = '';
+    public $currentController = 'Landingpages';
     public $currentMethod = 'index';
     public $params = [];
 
@@ -50,5 +50,3 @@ class Core {
         
     }
 }
-
-?>
