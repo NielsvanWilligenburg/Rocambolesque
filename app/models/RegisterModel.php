@@ -1,6 +1,6 @@
 <?php
 
-class RegistrerenModel
+class RegisterModel
 {
 
 	private $db;

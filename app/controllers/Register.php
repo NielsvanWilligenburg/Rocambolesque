@@ -1,12 +1,12 @@
 <?php
 
-class Registreren extends Controller
+class Register extends Controller
 {
-	private $registrerenModel;
+	private $registerModel;
 
 	public function __construct()
 	{
-		$this->registrerenModel = $this->model('RegistrerenModel');
+		$this->registerModel = $this->model('RegisterModel');
 	}
 
 	public function index()
@@ -16,6 +16,6 @@ class Registreren extends Controller
 			'description' => 'This is the example page'
 		];
 
-		$this->view('registreren/index', $data);
+		$this->view('register/index', $data);
 	}
 }
