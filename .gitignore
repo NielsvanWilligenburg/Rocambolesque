@@ -1,2 +1,4 @@
 app/config/config.php
 public/node_modules
+public/package-lock.json
+public/package.json
