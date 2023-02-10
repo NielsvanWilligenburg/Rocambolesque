@@ -21,20 +21,23 @@ class Register extends Controller
 
 	public function register()
 	{
+		$notification = "";
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			try {
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 				$result = $this->registerModel->createPerson($_POST);
-				exit;
-				// header("Location: " . URLROOT . "/register/");
+				if ($result) {
+					$notification = "Account creëeren succesvol, u werd binnen 3 seconden herleid";
+					header("Refresh: 3; url=" . URLROOT . "/register/");
+				} else {
+					$notification = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
+				}
 			} catch (PDOException $e) {
-				echo "Het creëeren is niet gelukt";
-				echo $e;
-				// header("Refresh:3; url=" . URLROOT . "/lessen/onderwerpen/" . $id);
+				$notification = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
 			}
 		}
-		$data = [];
+		$data = ["notification" => $notification];
 		$this->view('register/register', $data);
 	}
 
