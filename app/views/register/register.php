@@ -37,7 +37,7 @@ $data = $data ?? [];
 			<input type="text" name="mobile" placeholder="0646513232" maxlength="10">
 		</div>
 
-		<button type="submit" form="registerForm" value="submit">Wijzig</button>
+		<button type="submit" form="registerForm" value="submit">Registreer</button>
 
 
 	</form>

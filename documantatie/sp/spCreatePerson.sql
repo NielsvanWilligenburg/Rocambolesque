@@ -9,9 +9,9 @@ CREATE PROCEDURE spCreatePerson
 	 firstname				VARCHAR(50)
 	,lastname				VARCHAR(50)
 	,username				VARCHAR(50)
-	,password				VARCHAR(50)
+	,password				VARCHAR(60)
 	,email					VARCHAR(50)
-	,mobile					VARCHAR(12)
+	,mobile					VARCHAR(15)
 )
 
 BEGIN
@@ -39,7 +39,7 @@ BEGIN
 			 firstname
 			,lastname
 			,1
-			,'NULL'
+			,NULL
 			,SYSDATE(6)	
 			,SYSDATE(6)	
 		);
@@ -62,16 +62,15 @@ BEGIN
 			,email
 			,mobile
 			,1
-			,'NULL'
+			,NULL
 			,SYSDATE(6)	
 			,SYSDATE(6)	
 		);
-			
 		INSERT INTO user
 		(
 			 PersonId
 			,Username		
-			,Password		
+			,Password
 			,DatumIngelogd		
 			,DatumUitgelogd
 			,IsActief
@@ -86,8 +85,8 @@ BEGIN
 			,password	
 			,NULL
 			,NULL
-			,isActief	
-			,opmerking	
+			,1	
+			,NULL
 			,SYSDATE(6)		
 			,SYSDATE(6)	
 		);
