@@ -1,0 +1,43 @@
+@mixin link-block {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    padding: 10px;
+    border-radius: 6px;
+    transition: ease-in-out 0.3s;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: teal;
+
+    &:hover {
+        color: rgb(0, 68, 68);
+    }
+}
+
+.link-empty {
+    @include link-block;
+    border: 1px solid teal;
+
+    &:hover {
+        background-color: teal;
+        color: white;
+    }
+}
+
+.link-fill {
+    @include link-block;
+    background-color: teal;
+    color: white;
+
+    &:hover {
+        background-color: white;
+        border: 1px solid teal;
+        color: teal;
+    }
+}

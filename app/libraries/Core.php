@@ -2,7 +2,7 @@
 
 class Core {
     // properties
-    public $currentController = 'example';
+    public $currentController = 'Landingpages';
     public $currentMethod = 'index';
     public $params = [];
 
@@ -45,10 +45,8 @@ class Core {
     
             return $url;
         } else {
-            return array('example', 'index');
+            return array('landinpages', 'index');
         }
         
     }
 }
-
-?>
