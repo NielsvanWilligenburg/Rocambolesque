@@ -38,7 +38,7 @@ CREATE TABLE `user`(
 	`Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY,
 	`PersonId`			INT				NULL,
     `Username`			VARCHAR(50)		NOT NULL,
-    `Password`			VARCHAR(50)		NOT NULL,
+    `Password`			VARCHAR(60)		NOT NULL,
     `DatumIngelogd` 	TIMESTAMP		NULL,
     `DatumUitgelogd` 	TIMESTAMP		NULL,
 	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
@@ -143,7 +143,7 @@ CREATE TABLE reservation(
 
 -- MENU
 -- Column: Id, Name, Description
-CREATE TABLE `Menu`(
+CREATE TABLE `menu`(
     `Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY ,
     `Name` 				VARCHAR(255) 	NOT NULL,
     `Description` 		VARCHAR(255) 	NOT NULL,
@@ -236,3 +236,149 @@ VALUES
     (2, 'Vrijdag', '17:00:00', '22:00:00'),
     (1, 'Zaterdag', '17:00:00', '22:00:00'),
     (1, 'Zondag', '17:00:00', '22:00:00');
+
+-- All the stored procedures below V
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spCreatePerson;
+
+DELIMITER //
+    
+CREATE PROCEDURE spCreatePerson
+(
+	 firstname				VARCHAR(50)
+	,lastname				VARCHAR(50)
+	,username				VARCHAR(50)
+	,password				VARCHAR(60)
+	,email					VARCHAR(50)
+	,mobile					VARCHAR(15)
+)
+
+BEGIN
+
+    DECLARE personId 	INT UNSIGNED DEFAULT 0;
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;					
+		INSERT INTO person
+		(
+			 Firstname			
+			,Lastname		
+			,IsActief	
+			,Opmerking    	
+			,DatumAangemaakt  
+			,DatumGewijzigd	
+		)
+		VALUES
+		(
+			 firstname
+			,lastname
+			,1
+			,NULL
+			,SYSDATE(6)	
+			,SYSDATE(6)	
+		);
+		
+        SET personId = LAST_INSERT_ID();
+
+		INSERT INTO contact
+		(
+			 PersonId
+			,Email
+			,Mobile		
+			,IsActief		
+			,Opmerking   	
+			,DatumAangemaakt
+			,DatumGewijzigd		
+		)
+		VALUES
+		(
+			 personId
+			,email
+			,mobile
+			,1
+			,NULL
+			,SYSDATE(6)	
+			,SYSDATE(6)	
+		);
+		INSERT INTO user
+		(
+			 PersonId
+			,Username		
+			,Password
+			,DatumIngelogd		
+			,DatumUitgelogd
+			,IsActief
+			,Opmerking
+			,DatumAangemaakt  
+			,DatumGewijzigd
+		)
+		VALUES
+		(
+			 personId
+			,username
+			,password	
+			,NULL
+			,NULL
+			,1	
+			,NULL
+			,SYSDATE(6)		
+			,SYSDATE(6)	
+		);
+               
+        COMMIT;	
+END //
+
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindEmail;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindEmail
+(
+	 emailCheck				VARCHAR(50)
+)
+
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;
+    	SELECT * FROM contact WHERE Email = emailCheck;
+               
+        COMMIT;	
+END //
+
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindUsername;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindUsername
+(
+	 usernameCheck				VARCHAR(50)
+)
+
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;
+    	SELECT * FROM user WHERE Username = usernameCheck;
+               
+        COMMIT;	
+END //
