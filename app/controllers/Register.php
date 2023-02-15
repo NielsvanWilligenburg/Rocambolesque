@@ -18,4 +18,14 @@ class Register extends Controller
 
 		$this->view('register/index', $data);
 	}
+
+	public function update()
+	{
+		$data = [
+			'title' => 'Profile',
+			'description' => 'This is the example page'
+		];
+
+		$this->view('register/update', $data);
+	}
 }
