@@ -28,6 +28,7 @@ class Register extends Controller
 
 		$this->view('register/update', $data);
 	}
+	
 	public function register()
 	{
 		$notification = "";
