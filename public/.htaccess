@@ -4,5 +4,6 @@
     RewriteBase /public
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !(.css.map|.css|.js|.png|.jpg|.gif|robots.txt)$ [NC]
     RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 </IfModule>
