@@ -42,4 +42,11 @@ class RegisterModel
 		$this->db->bind(':username', $username, PDO::PARAM_STR);
 		return $this->db->single();
 	}
+
+	public function findPersonByEmailOrUsername($userString)
+	{
+		$this->db->query("CALL spFindPersonByEmailOrUsername(:userString)");
+		$this->db->bind(":userString", $userString, PDO::PARAM_STR);
+		return $this->db->single();
+	}
 }
