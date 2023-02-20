@@ -33,7 +33,7 @@ include_once(APPROOT . '/views/includes/functions.php');
 				</ul>
 			</div>
 			<div class="user-menu">
-				<a class="link-empty" href="<?= URLROOT . "/register/login"; ?>">Log in</a>
+				<a class="link-empty" href="<?= URLROOT . "register/login"; ?>">Log in</a>
 				<a class="link-fill" href="">Register</a>
 			</div>
 		</div>
