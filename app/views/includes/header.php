@@ -38,7 +38,7 @@ include_once(APPROOT . '/views/includes/functions.php');
 					echo "<a class='link-empty' href='" . URLROOT . "register/logout'>Log out</a>";
 				else
 					echo "<a class='link-empty' href='" . URLROOT . "register/login'>Log in</a>
-				<a class='link-fill' href='" . URLROOT . "register/register'>Register</a>'"; ?>
+				<a class='link-fill' href='" . URLROOT . "register/register'>Register</a>"; ?>
 			</div>
 		</div>
 		<div class="nav-icon">
