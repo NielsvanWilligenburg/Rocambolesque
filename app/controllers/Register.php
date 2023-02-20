@@ -61,7 +61,7 @@ class Register extends Controller
 
 					if ($result) {
 						$data['notification'] = "Account creëeren succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "/register/login");
+						header("Refresh: 3; url=" . URLROOT . "register/login");
 					} else {
 						$data['notification'] = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
 					}
@@ -90,7 +90,7 @@ class Register extends Controller
 
 						// $_SESSION["userrole"] = $result->userrole;
 						$data['notification'] = "Inloggen succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "/register/");
+						header("Refresh: 3; url=" . URLROOT . "register/");
 					} else {
 						$data['notification'] = "Incorrecte inloggegevens";
 					}
