@@ -20,6 +20,33 @@ class Register extends Controller
 		$this->view('register/index', $data);
 	}
 
+	public function update()
+	{
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+			$this->registerModel->updatePerson($_POST);
+
+			header("Location: " . URLROOT . "/register/update");
+
+		} else {
+			$person = $this->registerModel->findPersonById(2);
+
+
+			$data = [
+				'title' => 'Profile',
+				'firstname' => $person->Firstname,
+				'infix' => $person->Infix,
+				'lastname' => $person->Lastname,
+				'email' => $person->Email,
+				'mobile' => $person->Mobile
+			];
+
+			$this->view('register/update', $data);
+		}
+	}
+
 	public function register()
 	{
 		$data = ["notification" => ""];
