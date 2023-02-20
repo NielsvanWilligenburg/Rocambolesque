@@ -29,7 +29,6 @@ class Register extends Controller
 			$this->registerModel->updatePerson($_POST);
 
 			header("Location: " . URLROOT . "/register/update");
-
 		} else {
 			$person = $this->registerModel->findPersonById(2);
 
@@ -82,7 +81,6 @@ class Register extends Controller
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 				$result = $this->registerModel->findPersonByEmailOrUsername($_POST['userString']);
-
 				if ($result) {
 					if (password_verify($_POST['password'], $result->Password)) {
 						// login
@@ -114,9 +112,11 @@ class Register extends Controller
 	{
 		foreach ($post as $key => $value) {
 			if (empty($value)) {
-				$data['notification'] = "Niet alle velden zijn ingevuld";
-				// $data['notification'] = "De '$key' veld is niet ingevuld";
-				return ($data);
+				if ($key != "infix") {
+					$data['notification'] = "Niet alle velden zijn ingevuld";
+					// $data['notification'] = "De '$key' veld is niet ingevuld";
+					return ($data);
+				}
 			}
 		}
 		if (strlen($post['firstname']) > 50)

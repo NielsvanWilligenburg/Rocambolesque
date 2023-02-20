@@ -18,7 +18,7 @@ BEGIN
 	END;
             
 	START TRANSACTION;
-    	SELECT `user`.Password, `user`.Id FROM `person` per INNER JOIN `contact` con ON per.Id = con.PersonId INNER JOIN `user` ON per.Id = `user`.PersonId WHERE con.Email = userString OR `user`.Username = userString;
+    	SELECT `user`.Password, per.Id FROM `person` per INNER JOIN `contact` con ON per.Id = con.PersonId INNER JOIN `user` ON per.Id = `user`.PersonId WHERE con.Email = userString OR `user`.Username = userString;
                
         COMMIT;	
 END //

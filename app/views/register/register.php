@@ -11,6 +11,7 @@ $data = $data ?? [];
 		<div>
 			<label for="type">Name:</label>
 			<input type="text" name="firstname" placeholder="Jan" maxlength="50" required>
+			<input type="text" name="infix" placeholder="van" maxlength="20">
 			<input type="text" name="lastname" placeholder="Kip" maxlength="50" required>
 		</div>
 		<div>
