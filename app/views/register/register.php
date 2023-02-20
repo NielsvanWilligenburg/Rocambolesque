@@ -7,7 +7,7 @@ $data = $data ?? [];
 <body>
 	<h1>Registreren</h1>
 	<p><?= $data['notification'] ?></p>
-	<form action="<?= URLROOT; ?>/register/register" method="post" id="registerForm">
+	<form action="<?= URLROOT; ?>register/register" method="post" id="registerForm">
 		<div>
 			<label for="type">Name:</label>
 			<input type="text" name="firstname" placeholder="Jan" maxlength="50" required>

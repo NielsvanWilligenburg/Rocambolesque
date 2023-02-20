@@ -21,14 +21,31 @@ class Register extends Controller
 
 	public function update()
 	{
-		$data = [
-			'title' => 'Profile',
-			'description' => 'This is the example page'
-		];
 
-		$this->view('register/update', $data);
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+			$this->registerModel->updatePerson($_POST);
+
+			header("Location: " . URLROOT . "/register/update");
+
+		} else {
+			$person = $this->registerModel->findPersonById(2);
+
+
+			$data = [
+				'title' => 'Profile',
+				'firstname' => $person->Firstname,
+				'infix' => $person->Infix,
+				'lastname' => $person->Lastname,
+				'email' => $person->Email,
+				'mobile' => $person->Mobile
+			];
+
+			$this->view('register/update', $data);
+		}
 	}
-	
+
 	public function register()
 	{
 		$notification = "";
@@ -44,7 +61,7 @@ class Register extends Controller
 
 					if ($result) {
 						$data['notification'] = "Account creëeren succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "/register/");
+						header("Refresh: 3; url=" . URLROOT . "register/login");
 					} else {
 						$data['notification'] = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
 					}
@@ -55,6 +72,42 @@ class Register extends Controller
 			}
 		}
 		$this->view('register/register', $data);
+	}
+
+	public function login()
+	{
+		$data = ["notification" => ""];
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			try {
+				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+				$result = $this->registerModel->findPersonByEmailOrUsername($_POST['userString']);
+
+				if ($result) {
+					if (password_verify($_POST['password'], $result->Password)) {
+						// login
+						$_SESSION['id'] = $result->Id;
+
+						// $_SESSION["userrole"] = $result->userrole;
+						$data['notification'] = "Inloggen succesvol, u wordt binnen 3 seconden herleid";
+						header("Refresh: 3; url=" . URLROOT . "register/");
+					} else {
+						$data['notification'] = "Incorrecte inloggegevens";
+					}
+				} else {
+					$data['notification'] = "Incorrecte inloggegevens";
+				}
+			} catch (PDOException $e) {
+				echo $e;
+				$data['notification'] = "Er is iets fouts gegaan bij het inloggen, probeer later opnieuw of neem contact op met een admin";
+			}
+		}
+		$this->view('register/login', $data);
+	}
+
+	public function logout()
+	{
+		$this->view('register/logout');
 	}
 
 	private function validateCreatePerson($data, $post)
