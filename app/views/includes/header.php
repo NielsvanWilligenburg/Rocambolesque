@@ -34,7 +34,7 @@ include_once(APPROOT . '/views/includes/functions.php');
 			</div>
 			<div class="user-menu">
 				<a class="link-empty" href="<?= URLROOT . "/register/login"; ?>">Log in</a>
-				<a class="link-fill" href="">Register</a>
+				<a class="link-fill" href="<?= URLROOT . "/register/register"; ?>">Register</a>
 			</div>
 		</div>
 		<div class="nav-icon">
