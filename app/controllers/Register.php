@@ -33,6 +33,7 @@ class Register extends Controller
 			$person = $this->registerModel->findPersonById(2);
 
 
+
 			$data = [
 				'title' => 'Profile',
 				'firstname' => $person->Firstname,

@@ -62,8 +62,6 @@ class RegisterModel
 
 	public function updatePerson($post)
 	{
-
-		var_dump($post);
 		try {
 			$this->db->query("update person as per, contact as con
 									set per.Firstname = :firstname,
