@@ -181,17 +181,36 @@ form div.form > div {
   display: flex;
   flex-direction: row;
   column-gap: 0.75rem;
+  row-gap: 0.75rem;
 }
-form div.form input {
+form div.form input[type=text], form div.form input[type=password] {
   background-color: #c8c8c8;
   color: black;
   border: none;
   width: 100%;
   padding: 0.75rem;
 }
+form div.form div.required {
+  position: relative;
+}
+form div.form div.required::after {
+  content: "*";
+  position: absolute;
+  right: 2px;
+  color: red;
+}
+
 @media screen and (max-width: 960px) {
+  form div.form {
+    row-gap: 1rem;
+  }
   form div.form input {
     padding: 2rem;
+  }
+}
+@media screen and (max-width: 750px) {
+  form div.form {
+    row-gap: 0.75rem;
   }
 }
 .container, .row, .col {
@@ -253,17 +272,37 @@ form div.form.login {
   width: 70%;
 }
 form div.form.register {
+  width: 40%;
+  border: solid black 1px;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+form div.form.register div.name > div {
+  width: 100%;
+}
+form div.form.register div.name div.infix {
   width: 50%;
 }
-form div.form.register input.infix {
-  width: 50%;
-}
-form div.form div#submit {
+form div.form div.buttons {
+  position: relative;
+  padding-top: 2rem;
+  row-gap: 0.5rem;
   flex-direction: column;
-  padding: 2rem 0;
+}
+form div.form div.buttons div.or {
+  display: flex;
+  justify-content: center;
+}
+form div.form div.buttons div.button {
+  flex-direction: column;
   align-items: start;
 }
-form div.form div#submit a {
+form div.form div.buttons div.button p.notification {
+  position: absolute;
+  top: -0.5rem;
+  color: red;
+}
+form div.form div.buttons div.button a {
   background-color: white;
   width: 100%;
 }
@@ -290,10 +329,34 @@ form div.form div#submit a {
   .container.login .row .col.right-side form {
     padding: 2rem 0;
   }
+  form div.form label {
+    font-size: 1rem;
+  }
+  form div.form div.subtext a {
+    font-size: 1rem;
+  }
+  form div.form div#submit p {
+    font-size: 1rem;
+  }
+  form div.form.register {
+    width: 70%;
+  }
 }
 @media screen and (max-width: 750px) {
   .container .row .col.left-side div.text, .container .row .col.left-side img {
     width: 70%;
+  }
+  form div.form.register {
+    width: 90%;
+  }
+  form div.form.register div.name {
+    flex-wrap: wrap;
+  }
+  form div.form.register div.name div.firstname {
+    width: 70%;
+  }
+  form div.form.register div.name div.infix {
+    width: calc(30% - 0.75rem);
   }
 }
 @media screen and (max-width: 567px) {

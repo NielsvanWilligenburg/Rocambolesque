@@ -46,11 +46,8 @@
 			&.right-side {
 				justify-content: center;
 				background-color: theme.accent('secondary-light');
-
-
 			}
 		}
-
 	}
 }
 
@@ -60,19 +57,44 @@ form {
 			width: 70%;
 		}
 		&.register {
-			width: 50%;
-			input.infix {
-				width: 50%;
-			}
-		}
+			width: 40%;
+			border: solid black 1px;
+			border-radius: 1rem;
+			padding: 1rem;
+			div.name {
+				> div {
+					width: 100%;
+				}
+				div.infix {
+					width: 50%;
+				}
 
-		div#submit {
+			}
+
+		}
+		div.buttons {
+			position: relative;
+			padding-top: 2rem;
+			row-gap: 0.5rem;
 			flex-direction: column;
-			padding: 2rem 0;
-			align-items: start;
-			a {
-				background-color: white;
-				width: 100%;
+			
+			div.or {
+				display: flex;
+				justify-content: center;
+			}
+
+			div.button {
+				flex-direction: column;
+				align-items: start;
+				p.notification {
+					position: absolute;
+					top: -0.5rem;
+					color: red;
+				}
+				a {
+					background-color: white;
+					width: 100%;
+				}
 			}
 		}
 	}
@@ -105,6 +127,24 @@ form {
 			}
 		}
 	}
+	form div.form {
+		label {
+			font-size: 1rem;
+		}
+		div.subtext {
+			a {
+				font-size: 1rem;
+			}
+		}
+		div#submit {
+			p {
+				font-size: 1rem;
+			}
+		}
+		&.register {
+			width: 70%;
+		}
+	}
 }
 
 @media screen and (max-width: 750px) {
@@ -112,6 +152,18 @@ form {
 		&.left-side {
 			div.text, img {
 				width: 70%;
+			}
+		}
+	}
+	form div.form.register {
+		width: 90%;
+		div.name {
+			flex-wrap: wrap;
+			div.firstname {
+				width: 70%;
+			}
+			div.infix {
+				width: calc(30% - 0.75rem);
 			}
 		}
 	}
