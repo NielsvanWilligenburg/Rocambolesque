@@ -1,0 +1,17 @@
+@use 'sass:map';
+
+$colors: (
+	'background-color': (
+		'base': #F2F2F2,
+		'dark': #a1a1a1
+	),
+	'accent': (
+		'primary': #04BF9D,
+		'secondary-dark': #40261D,
+		'secondary': #A5633C,
+		'secondary-light': #D89E6B,
+	)
+);
+
+@function background-color( $type: 'base' ) { @return map-get($colors, 'background-color', $type); }
+@function accent( $name: false ) { @return map-get($colors, 'accent', $name); }
