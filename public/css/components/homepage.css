@@ -16,9 +16,7 @@ body {
   padding: 20px;
   text-transform: uppercase;
   justify-content: center;
-  font-family: Good Brush;
-  margin-top: 36px;
-  margin-bottom: 20px;
+  font-family: Good Brush
 }
 
 
@@ -50,6 +48,8 @@ body {
 .image {
   width: 45%;
   height: 500px;
+  margin: 0 10px;
+
 }
 
 .image img {
@@ -59,9 +59,10 @@ body {
   margin: 10px;
 }
 
+
 .description {
   font-size: 18px;
-  margin-top: 5px;
+  margin: 20px 0;
 }
 
 @media only screen and (max-width: 767px) {
@@ -72,18 +73,13 @@ body {
   .images {
     display: block;
     justify-content: space-between;
-    align-items: center;
-    max-width: 100%;
-  }
-
-  .image {
-    width: 100%;
+    margin: auto auto auto auto;
+    max-width: 45%;
   }
 
   .image img {
     text-align: center;
-    align-items: center;
-    margin: auto auto 10px auto;
+    margin: auto auto 0px auto;
   }
 
   .restaurant-info {
@@ -94,23 +90,21 @@ body {
 
   .opening-hours {
     margin-top: 10px;
-    row-gap: 1rem;
-
   }
 
   .reservation-box {
     width: 100%;
-    align-items: center;
   }
 }
+
+
+
 
 .restaurant-info {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin-left: 10px;
-  justify-content: space-between;
-  padding-right: 35px;
 }
 
 .restaurant-info img {
@@ -127,18 +121,17 @@ body {
 
 .opening-hours h3 {
   margin: 0;
-  font-size: 22px;
-  margin-bottom: 10px;
 }
+
+
 
 .reservation-box {
   width: 100%;
   margin: 10px auto;
   background-color: #f2f2f2;
   padding: 60px;
-  align-items: center;
+
   display: flex;
-  justify-content: space-around
 }
 
 .reservation-box p {
@@ -168,6 +161,8 @@ body {
 .contact-button:hover {
   background-color: lightgrey;
 }
+
+
 
 .company {
   max-width: 100%;
@@ -263,13 +258,3 @@ body {
   font-size: 18px;
   cursor: pointer;
 }
-
-
-
-/* 
-abou us 
-element.style {
-    flex-direction: column-reverse;
-} */
-
-

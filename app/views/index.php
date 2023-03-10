@@ -24,11 +24,13 @@
             <a href="#" class="button-text">Reserveren</a>
         </button>
     </div>
+    <br><br>
 
     <div class="special-offers">
         <span class="special">Special </span>
         <span class="offers">Offers</span>
     </div>
+    <br><br>
 
     <div class="images">
         <div class="image">
@@ -42,6 +44,7 @@
                 </button>
             </div>
         </div>
+
         <div class="image">
             <img src="https://i4.hurimg.com/i/hurriyet/75/750x422/5d4d328f18c7730d14907846.jpg">
             <h3>Crêpes</h3>
@@ -55,10 +58,12 @@
         </div>
     </div>
 
+
     <div class="restaurant-info ">
         <img src="https://sc01.alicdn.com/kf/HTB1UZ4sKVXXXXaAaXXXq6xXFXXX2/entry-doors-and-commercial-glass-entry-door.jpg" alt="Restaurant photo">
         <div class="opening-hours">
             <h3>OPENING HOURS</h3>
+            <br>
             <p>MONDAY closed</p>
             <p>TUESDAY-WEDNESDAY 12:00-00:00</p>
             <p>THURSDAY-SATURDAY 12:00-02:00</p>
@@ -66,6 +71,7 @@
         </div>
     </div>
 
+    <br>
     <div class="reservation-box">
         <p>You can call us for your reservation requests or you can do it online by clicking the link.</p>
         <div class="button-container">
@@ -88,6 +94,7 @@
             <img src="https://uploads.turbologo.com/uploads/design/preview_image/262570/preview_image20210721-23772-2g3qfg.png" alt="Image8">
         </div>
     </div>
+
 
 </body>
 
