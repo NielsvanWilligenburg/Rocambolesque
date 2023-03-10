@@ -1,15 +1,3 @@
-@import './components/header';
-@import './components/footer';
-@import './components/links';
-
-body {
-    font-family: sans-serif;
-
-    @media screen and (max-width: 750px) {
-        font-size: 150%;
-    }
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
