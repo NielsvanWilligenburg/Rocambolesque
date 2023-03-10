@@ -185,6 +185,7 @@ form div.form > div {
 }
 form div.form input[type=text], form div.form input[type=password] {
   background-color: #c8c8c8;
+
   color: black;
   border: none;
   width: 100%;
@@ -204,6 +205,7 @@ form div.form div.required::after {
   form div.form {
     row-gap: 1rem;
   }
+
   form div.form input {
     padding: 2rem;
   }
@@ -235,6 +237,7 @@ form div.form div.required::after {
 .head.login {
   background-color: #04BF9D;
 }
+
 .head h1 {
   padding: 2rem;
 }
