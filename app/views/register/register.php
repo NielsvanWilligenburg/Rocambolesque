@@ -5,36 +5,63 @@ $data = $data ?? [];
 ?>
 
 <body>
-	<h1>Registreren</h1>
-	<p><?= $data['notification'] ?></p>
+	<div class="head">
+		<h1>Register</h1>
+	</div>
 	<form action="<?= URLROOT; ?>register/register" method="post" id="registerForm">
-		<div>
-			<label for="type">Name:</label>
-			<input type="text" name="firstname" placeholder="Jan" maxlength="50" required>
-			<input type="text" name="infix" placeholder="van" maxlength="20">
-			<input type="text" name="lastname" placeholder="Kip" maxlength="50" required>
+		<div class="form register">
+			<div class="name">
+				<div class="required firstname">
+					<input type="text" name="firstname" placeholder="Firstname" maxlength="50">
+				</div>
+				<div class="infix">
+					<input type="text" name="infix" placeholder="Infix" maxlength="20">
+				</div>
+				<div class="required">
+					<input type="text" name="lastname" placeholder="Lastname" maxlength="50">
+				</div>
+			</div>
+			<div class="required">
+				<input type="text" name="username" placeholder="Username" maxlength="50">
+			</div>
+			<div class="required">
+				<input type="text" name="email" placeholder="Email" maxlength="50">
+			</div>
+			<div class="required">
+				<input type="text" name="mobile" placeholder="Phone number" maxlength="15">
+			</div>
+			<div class="required">
+				<input type="password" name="password" placeholder="Password" maxlength="50">
+			</div>
+			<div class="required">
+				<input type="password" name="repeat-password" placeholder="Repeat Password" maxlength="50">
+			</div>
+			<div>
+				<input type="checkbox" name="terms" id="terms">
+				<label for="terms">I agree to the <a target="_blank" href="">Terms of Use</a></label>
+			</div>
+			<div class="buttons">
+				<div id="submit" class="button">
+					<p class="notification"><?= $data['notification'] ?></p>
+					<a class="link-empty submit" onclick="submitForm()">Register</a>
+				</div>
+				<div class="or">
+					<p>or</p>
+				</div>
+				<div class="button to-login">
+					<a class="link-empty submit" href="<?= URLROOT; ?>register/login">Login</a>
+				</div>
+			</div>
 		</div>
-		<div>
-			<label for="type">Username:</label>
-			<input type="text" name="username" placeholder="jankip1" maxlength="50" required>
-		</div>
-		<div>
-			<label for="type">Password:</label>
-			<input type="password" name="password" placeholder="******" maxlength="50" required>
-		</div>
-		<div>
-			<label for="type">Email:</label>
-			<input type="text" name="email" placeholder="currysaus@gmail.com" maxlength="50" required>
-		</div>
-		<div>
-			<label for="type">Mobile:</label>
-			<input type="text" name="mobile" placeholder="0646513232" maxlength="10" required>
-		</div>
-
-		<button type="submit" form="registerForm" value="submit">Registreer</button>
 
 
 	</form>
+
+	<script>
+		function submitForm() {
+			document.querySelector("form#registerForm").submit();
+		}
+	</script>
 
 </body>
 

@@ -119,30 +119,34 @@ class Register extends Controller
 		foreach ($post as $key => $value) {
 			if (empty($value)) {
 				if ($key != "infix") {
-					$data['notification'] = "Niet alle velden zijn ingevuld";
+					$data['notification'] = "Not all required fields have been filled in";
 					// $data['notification'] = "De '$key' veld is niet ingevuld";
 					return ($data);
 				}
 			}
 		}
 		if (strlen($post['firstname']) > 50)
-			$data['notification'] = "Voornaam mag niet meer dan 50 karakter bevatten";
+			$data['notification'] = "Firstname may not contain more than 50 characters";
 		else if (strlen($post['lastname']) > 50)
-			$data['notification'] = "Achternaam mag niet meer dan 50 karakter bevatten";
+			$data['notification'] = "Lastname may not contain more than 50 characters";
 		else if (strlen($post['username']) > 50)
-			$data['notification'] = "Gebruikersnaam mag niet meer dan 50 karakter bevatten";
+			$data['notification'] = "Username may not contain more than 50 characters";
 		else if (strlen($post['email']) > 50)
-			$data['notification'] = "Email mag niet meer dan 50 karakter bevatten";
+			$data['notification'] = "Email may not contain more than 50 characters";
 		else if (strlen($post['mobile']) > 15)
-			$data['notification'] = "Mobiele nummer mag niet meer dan 50 karakter bevatten";
+			$data['notification'] = "Mobile number may not contain more than 15 characters";
+		else if ($post['password'] != $post['repeat-password'])
+			$data['notification'] = "Repeat password does not match with password";
+		else if (!$post['terms'])
+			$data['notification'] = "Please accept the Terms of Use";
 		else if (!filter_var($post['email'], FILTER_VALIDATE_EMAIL))
-			$data['notification'] = "Vul een geldig email adres in";
+			$data['notification'] = "Email is not in correct format";
 		else if (!ctype_digit($post['mobile']))
-			$data['notification'] = "Mobiele nummer mag alleen cijfers bevatten";
+			$data['notification'] = "Mobile number may only contain numbers";
 		else if ($this->registerModel->findEmail($post['email']))
-			$data['notification'] = "Dit email adres is al in gebruik";
+			$data['notification'] = "This email has already been used";
 		else if ($this->registerModel->findUsername($post['username']))
-			$data['notification'] = "Deze gebruikersnaam is al in gebruik";
+			$data['notification'] = "This username has already been used";
 		return ($data);
 	}
 }
