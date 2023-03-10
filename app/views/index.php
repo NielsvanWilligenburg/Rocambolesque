@@ -23,26 +23,26 @@
         <button class="main-button">
             <a href="#" class="button-text">Reserveren</a>
         </button>
-    </div><br><br>
+    </div>
 
     <div class="special-offers">
         <span class="special">Our </span>
         <span class="offers">Story</span>
-    </div><br><br>
+    </div>
 
     <div class="left">
-        <img src="https://i.dunya.com/2/1280/720/storage/old/files/2017/11/6/389823/389823.jpg.webp"><br><br><br>
+        <img src="https://i.dunya.com/2/1280/720/storage/old/files/2017/11/6/389823/389823.jpg.webp">
         <div class="container">
-            <p> <strong> Located in a historical building in Utrecht; Rocambolesque opened its doors in 2023, providing an immersive, multi-sensory dining experience from day one. <br><br> </strong>
-                Two friends, Usem Alaoui and Finn Pinneau, founded the restaurant together. Together they decided to call the restaurant "Rocambolesque". Means "fantastic" in French. Finn's great-grandfather also owned a restaurant of the same name in the north of France. But while they both kept the style of that restaurant, Chef Usem Alaoui's ingenious approach to fine dining thought it would be a good idea to offer a contemporary menu of seasonal dishes from around the world. They decided to work with fixed arrangements and seasonally changing menus to ensure the quality of the food.<br>
-                <br>Welcome to the ultimate destination in your pursuit of pleasure.
-            </p><br><br>
-            <br><br>
+            <p> <strong> Located in a historical building in Utrecht; Rocambolesque opened its doors in 2023, providing an immersive, multi-sensory dining experience from day one. </strong>
+                <br> Two friends, Usem Alaoui and Finn Pinneau, founded the restaurant together. Together they decided to call the restaurant "Rocambolesque". Means "fantastic" in French. Finn's great-grandfather also owned a restaurant of the same name in the north of France. But while they both kept the style of that restaurant, Chef Usem Alaoui's ingenious approach to fine dining thought it would be a good idea to offer a contemporary menu of seasonal dishes from around the world. They decided to work with fixed arrangements and seasonally changing menus to ensure the quality of the food.
+                <br> Welcome to the ultimate destination in your pursuit of pleasure.
+            </p>
+
         </div>
     </div>
     <div class="right">
         <img src="https://lecordonbleu.ozyegin.edu.tr/sites/default/files/uzun-donem_0.png">
-    </div><br>
+    </div>
 
     <div class="reservation-box">
         <p>You can call us for your reservation requests or you can do it online by clicking the link.</p>
