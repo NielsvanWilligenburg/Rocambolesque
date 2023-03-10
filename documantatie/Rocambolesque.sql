@@ -445,3 +445,37 @@ BEGIN
         COMMIT;	
 END //
 
+DROP PROCEDURE IF EXISTS delete_person_and_related_tables;
+
+DELIMITER //
+
+CREATE PROCEDURE delete_person_and_related_tables(
+    IN person_id INT
+)
+BEGIN
+    DELETE FROM userrole WHERE UserId IN (SELECT Id FROM user WHERE PersonId = person_id);
+    DELETE FROM user WHERE PersonId = person_id;
+    DELETE FROM contact WHERE PersonId = person_id;
+    DELETE FROM reservation WHERE PersonId = person_id;
+    DELETE FROM person WHERE Id = person_id;
+END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delete_person_and_related_tables;
+
+DELIMITER //
+
+CREATE PROCEDURE delete_person_and_related_tables(
+    IN person_id INT
+)
+BEGIN
+    DELETE FROM userrole WHERE UserId IN (SELECT Id FROM user WHERE PersonId = person_id);
+    DELETE FROM user WHERE PersonId = person_id;
+    DELETE FROM contact WHERE PersonId = person_id;
+    DELETE FROM reservation WHERE PersonId = person_id;
+    DELETE FROM person WHERE Id = person_id;
+END //
+
+DELIMITER ;
+
