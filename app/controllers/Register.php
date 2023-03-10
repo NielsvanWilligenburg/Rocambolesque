@@ -30,7 +30,7 @@ class Register extends Controller
 
 			header("Location: " . URLROOT . "/register/update");
 		} else {
-			$person = $this->registerModel->findPersonById(13);
+			$person = $this->registerModel->findPersonById($_SESSION['id']);
 
 
 			$data = [
@@ -49,7 +49,8 @@ class Register extends Controller
 	public function delete()
 	{
 		echo "delete";
-		$this->registerModel->deletePerson(13);
+		$this->registerModel->deletePerson($_SESSION['id']);
+		header("Location: " . URLROOT);
 	}
 
 	public function register()
