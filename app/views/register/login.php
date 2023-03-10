@@ -7,7 +7,7 @@ $data = $data ?? [];
 <body>
 	<h1>Inloggen</h1>
 	<p><?= $data['notification'] ?></p>
-	<form action="<?= URLROOT; ?>/register/login" method="post" id="loginForm">
+	<form action="<?= URLROOT; ?>register/login" method="post" id="loginForm">
 		<div>
 			<label for="type">Email/Username:</label>
 			<input type="text" name="userString" placeholder="jankip1" maxlength="50" required>

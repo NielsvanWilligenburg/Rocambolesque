@@ -11,10 +11,10 @@ CREATE TABLE `person`(
     `Firstname` 		VARCHAR(50)		NOT NULL,
     `Infix`				VARCHAR(20)		NULL,
     `Lastname`			VARCHAR(50) 	NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB;
     
 -- CONTACT
@@ -142,7 +142,7 @@ CREATE TABLE reservation(
 
 -- MENU
 -- Column: Id, Name, Description
-CREATE TABLE `Menu`(
+CREATE TABLE `menu`(
     `Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY ,
     `Name` 				VARCHAR(255) 	NOT NULL,
     `Description` 		VARCHAR(255) 	NOT NULL,
@@ -479,3 +479,26 @@ END //
 
 DELIMITER ;
 
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindPersonByEmailOrUsername;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindPersonByEmailOrUsername
+(
+	userString				VARCHAR(50)
+)
+
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;
+    	SELECT `user`.Password, `person`.Id FROM `person` per INNER JOIN `contact` con ON per.Id = con.PersonId INNER JOIN `user` ON per.Id = `user`.PersonId WHERE con.Email = userString OR `user`.Username = userString;
+               
+        COMMIT;	
+END //

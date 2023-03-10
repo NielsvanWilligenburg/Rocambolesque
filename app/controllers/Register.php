@@ -29,7 +29,6 @@ class Register extends Controller
 			$this->registerModel->updatePerson($_POST);
 
 			header("Location: " . URLROOT . "/register/update");
-
 		} else {
 			$person = $this->registerModel->findPersonById(13);
 
@@ -67,7 +66,7 @@ class Register extends Controller
 
 					if ($result) {
 						$data['notification'] = "Account creëeren succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "/register/login");
+						header("Refresh: 3; url=" . URLROOT . "register/login");
 					} else {
 						$data['notification'] = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
 					}
@@ -88,7 +87,6 @@ class Register extends Controller
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 				$result = $this->registerModel->findPersonByEmailOrUsername($_POST['userString']);
-
 				if ($result) {
 					if (password_verify($_POST['password'], $result->Password)) {
 						// login
@@ -96,7 +94,7 @@ class Register extends Controller
 
 						// $_SESSION["userrole"] = $result->userrole;
 						$data['notification'] = "Inloggen succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "/register/");
+						header("Refresh: 3; url=" . URLROOT . "register/");
 					} else {
 						$data['notification'] = "Incorrecte inloggegevens";
 					}
@@ -120,9 +118,11 @@ class Register extends Controller
 	{
 		foreach ($post as $key => $value) {
 			if (empty($value)) {
-				$data['notification'] = "Niet alle velden zijn ingevuld";
-				// $data['notification'] = "De '$key' veld is niet ingevuld";
-				return ($data);
+				if ($key != "infix") {
+					$data['notification'] = "Niet alle velden zijn ingevuld";
+					// $data['notification'] = "De '$key' veld is niet ingevuld";
+					return ($data);
+				}
 			}
 		}
 		if (strlen($post['firstname']) > 50)
