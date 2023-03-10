@@ -78,11 +78,18 @@ class RegisterModel
 		$this->db->bind(':lastname', $post['lastname'], PDO::PARAM_STR);
 		$this->db->bind(':email', $post['email'], PDO::PARAM_STR);
 		$this->db->bind(':mobile', $post['phoneNumber'], PDO::PARAM_STR);
-		$this->db->bind(':id', 2, PDO::PARAM_INT);
+		$this->db->bind(':id', 13, PDO::PARAM_INT);
 		return $this->db->execute();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
 		
+	}
+
+	public function deletePerson($id)
+	{
+		$this->db->query("call delete_person_and_related_tables(:id)");
+		$this->db->bind(':id', $id, PDO::PARAM_INT);
+		return $this->db->execute();
 	}
 }

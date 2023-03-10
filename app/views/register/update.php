@@ -19,3 +19,5 @@
     <button type="submit">Update Your data</button>
 
 </form>
+
+<a href="<?=URLROOT?>register/delete">delete</a>
