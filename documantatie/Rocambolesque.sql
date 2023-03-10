@@ -9,11 +9,12 @@ DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person`(
 	`Id` 				INT 			NOT NULL	AUTO_INCREMENT PRIMARY KEY,
     `Firstname` 		VARCHAR(50)		NOT NULL,
+    `Infix`				VARCHAR(20)		NULL,
     `Lastname`			VARCHAR(50) 	NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB;
     
 -- CONTACT
@@ -24,10 +25,10 @@ CREATE TABLE `contact`(
     `PersonId`			INT				NULL,
     `Email`				VARCHAR(50) 	NOT NULL,
     `Mobile`			VARCHAR(15) 	NOT NULL,
-	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT PersonContact FOREIGN KEY (`PersonId`) REFERENCES person(`Id`)
 )ENGINE=INNODB; 
 
@@ -36,15 +37,15 @@ CREATE TABLE `contact`(
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`(
 	`Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY,
-	`PersonId`			INT				NULL,
+	`PersonId`			INT				NULL		UNIQUE KEY,
     `Username`			VARCHAR(50)		NOT NULL,
-    `Password`			VARCHAR(60)		NOT NULL,
+    `Password`			VARCHAR(100)	NOT NULL,
     `DatumIngelogd` 	TIMESTAMP		NULL,
     `DatumUitgelogd` 	TIMESTAMP		NULL,
-	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT PersonUser FOREIGN KEY (`PersonId`) REFERENCES person(`Id`)
 )ENGINE=INNODB;
 
@@ -54,10 +55,10 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`(
 	`Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY,
 	`Name`				VARCHAR(20)		NOT NULL,
- 	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+ 	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB;
 
 -- USERROLE
@@ -67,10 +68,10 @@ CREATE TABLE `userrole`(
 	`Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY,
 	`UserId`			INT				NULL,
 	`RoleId`			INT				NULL,
-	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT UserUserrole FOREIGN KEY (`UserId`) REFERENCES user(`Id`),
     CONSTRAINT RoleUserrole FOREIGN KEY (`RoleId`) REFERENCES role(`Id`)
 )ENGINE=INNODB;
@@ -83,10 +84,10 @@ CREATE TABLE `table`(
     `TableNumber`		INT 			NOT NULL,
     `MaxGuests`			INT   			NOT NULL,
     `MaxChildren`		INT				NULL,
-	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB;
 
 -- PRICE
@@ -96,10 +97,10 @@ CREATE TABLE `price`(
 	`Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY,
     `GuestsPrice`		INT				NOT NULL,
     `ChildPrice`		INT				NOT NULL,
-	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB;
 
 -- OPENINGSTIME
@@ -111,10 +112,10 @@ CREATE TABLE `openingtime`(
     `Day`				VARCHAR(9)		NOT NULL,
 	`Opening`			TIME			NOT NULL,
     `Closing`			TIME 			NOT NULL,
-	`IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT PriceOpeningtime FOREIGN KEY (`PriceId`) REFERENCES `price`(`Id`)
 )ENGINE=INNODB;
 
@@ -123,20 +124,18 @@ CREATE TABLE `openingtime`(
 DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE reservation(
 	`Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY,
-    `PersonId` 			INT 			NOT NULL,
-    `PriceId` 			INT 			NOT NULL,
-	`OpeningtimeId` 	INT			NULL,
+    `PersonId` 			INT 			NOT NULL, 
+	`OpeningtimeId` 	INT				NULL,
     `TableId`			INT				NULL,
     `Guests`			INT 			NOT NULL,
     `Children`			INT				NOT NULL,
     `Date`				DATE			NOT NULL,
 	`Time`				TIME 			NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT PersonReservation FOREIGN KEY (`PersonId`) REFERENCES `person`(`Id`),
-    CONSTRAINT PriceReservation FOREIGN KEY (`PriceId`) REFERENCES `price`(`Id`),
     CONSTRAINT OpeningstimeReservation FOREIGN KEY (`OpeningtimeId`) REFERENCES openingtime(`Id`),
     CONSTRAINT TableReservation FOREIGN KEY (`TableId`) REFERENCES `table`(`Id`)
 )ENGINE=INNODB;
@@ -147,10 +146,10 @@ CREATE TABLE `menu`(
     `Id` 				INT 			NOT NULL 	AUTO_INCREMENT PRIMARY KEY ,
     `Name` 				VARCHAR(255) 	NOT NULL,
     `Description` 		VARCHAR(255) 	NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB;
 
 -- APPETIZER
@@ -161,10 +160,10 @@ CREATE TABLE `appetizer`(
     `Name` 				VARCHAR(255) 	NOT NULL,
     `Ingredients` 		VARCHAR(255) 	NOT NULL,
     `Category` 			VARCHAR(255) 	NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT MenuAppetizer FOREIGN KEY (`MenuId`) REFERENCES `menu`(`Id`)
 )ENGINE=INNODB;
 
@@ -176,10 +175,10 @@ CREATE TABLE `main`(
     `Name` 				VARCHAR(255) 	NOT NULL,
     `Ingredients` 		VARCHAR(255) 	NOT NULL,
     `Category` 			VARCHAR(255)	NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT MenuMain FOREIGN KEY (`MenuId`) REFERENCES `menu`(`Id`)
 )ENGINE=INNODB;
 
@@ -191,10 +190,10 @@ CREATE TABLE `dessert`(
     `Name` 				VARCHAR(255) 	NOT NULL,
     `Ingredients` 		VARCHAR(255) 	NOT NULL,
     `Category` 			VARCHAR(255) 	NOT NULL,
-    `IsActief` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
-    `Opmerking` 		TEXT			NULL,
-    `DatumAangemaakt` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `DatumGewijzigd` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `IsActive` 			TINYINT(1) 		NOT NULL 	DEFAULT 1,
+    `Remark` 		TEXT			NULL,
+    `DateCreated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `DateUpdated` 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT MenuDessert FOREIGN KEY (`MenuId`) REFERENCES `menu`(`Id`)
 )ENGINE=INNODB;
 
@@ -237,7 +236,12 @@ VALUES
     (1, 'Zaterdag', '17:00:00', '22:00:00'),
     (1, 'Zondag', '17:00:00', '22:00:00');
 
--- All the stored procedures below V
+
+/**
+ *	All the stored procedures below V
+**/
+
+
 USE Rocambolesque;
 DROP PROCEDURE IF EXISTS spCreatePerson;
 
@@ -246,6 +250,7 @@ DELIMITER //
 CREATE PROCEDURE spCreatePerson
 (
 	 firstname				VARCHAR(50)
+	,infix					VARCHAR(20)
 	,lastname				VARCHAR(50)
 	,username				VARCHAR(50)
 	,password				VARCHAR(60)
@@ -268,19 +273,11 @@ BEGIN
 		(
 			 Firstname			
 			,Lastname		
-			,IsActief	
-			,Opmerking    	
-			,DatumAangemaakt  
-			,DatumGewijzigd	
 		)
 		VALUES
 		(
 			 firstname
 			,lastname
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
 		);
 		
         SET personId = LAST_INSERT_ID();
@@ -290,20 +287,12 @@ BEGIN
 			 PersonId
 			,Email
 			,Mobile		
-			,IsActief		
-			,Opmerking   	
-			,DatumAangemaakt
-			,DatumGewijzigd		
 		)
 		VALUES
 		(
 			 personId
 			,email
 			,mobile
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
 		);
 		INSERT INTO user
 		(
@@ -312,10 +301,6 @@ BEGIN
 			,Password
 			,DatumIngelogd		
 			,DatumUitgelogd
-			,IsActief
-			,Opmerking
-			,DatumAangemaakt  
-			,DatumGewijzigd
 		)
 		VALUES
 		(
@@ -324,10 +309,6 @@ BEGIN
 			,password	
 			,NULL
 			,NULL
-			,1	
-			,NULL
-			,SYSDATE(6)		
-			,SYSDATE(6)	
 		);
                
         COMMIT;	
@@ -358,6 +339,64 @@ BEGIN
         COMMIT;	
 END //
 
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindPersonByEmailOrUsername;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindPersonByEmailOrUsername
+(
+	userString				VARCHAR(50)
+)
+
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;
+    	SELECT `user`.Password, per.Id FROM `person` per INNER JOIN `contact` con ON per.Id = con.PersonId INNER JOIN `user` ON per.Id = `user`.PersonId WHERE con.Email = userString OR `user`.Username = userString;
+               
+        COMMIT;	
+END //
+
+DROP PROCEDURE IF EXISTS delete_person_and_related_tables;
+
+DELIMITER //
+
+CREATE PROCEDURE delete_person_and_related_tables(
+    IN person_id INT
+)
+BEGIN
+    DELETE FROM userrole WHERE UserId IN (SELECT Id FROM user WHERE PersonId = person_id);
+    DELETE FROM user WHERE PersonId = person_id;
+    DELETE FROM contact WHERE PersonId = person_id;
+    DELETE FROM reservation WHERE PersonId = person_id;
+    DELETE FROM person WHERE Id = person_id;
+END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delete_person_and_related_tables;
+
+DELIMITER //
+
+CREATE PROCEDURE delete_person_and_related_tables(
+    IN person_id INT
+)
+BEGIN
+    DELETE FROM userrole WHERE UserId IN (SELECT Id FROM user WHERE PersonId = person_id);
+    DELETE FROM user WHERE PersonId = person_id;
+    DELETE FROM contact WHERE PersonId = person_id;
+    DELETE FROM reservation WHERE PersonId = person_id;
+    DELETE FROM person WHERE Id = person_id;
+END //
+
+DELIMITER ;
 
 USE Rocambolesque;
 DROP PROCEDURE IF EXISTS spFindUsername;
