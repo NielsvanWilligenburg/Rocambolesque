@@ -9,7 +9,7 @@
 
     <!-- // «««««««««« Css links »»»»»»»»»» // -->
 
-    <link rel="stylesheet" href="../../public/css/components/homepage.css">
+    <link rel="stylesheet" href="../../public/css/homepage.css">
 </head>
 
 <body>
