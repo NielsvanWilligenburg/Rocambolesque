@@ -7,6 +7,7 @@ DELIMITER //
 CREATE PROCEDURE spCreatePerson
 (
 	 firstname				VARCHAR(50)
+	,infix					VARCHAR(20)
 	,lastname				VARCHAR(50)
 	,username				VARCHAR(50)
 	,password				VARCHAR(60)
@@ -29,19 +30,11 @@ BEGIN
 		(
 			 Firstname			
 			,Lastname		
-			,IsActief	
-			,Opmerking    	
-			,DatumAangemaakt  
-			,DatumGewijzigd	
 		)
 		VALUES
 		(
 			 firstname
 			,lastname
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
 		);
 		
         SET personId = LAST_INSERT_ID();
@@ -51,20 +44,12 @@ BEGIN
 			 PersonId
 			,Email
 			,Mobile		
-			,IsActief		
-			,Opmerking   	
-			,DatumAangemaakt
-			,DatumGewijzigd		
 		)
 		VALUES
 		(
 			 personId
 			,email
 			,mobile
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
 		);
 		INSERT INTO user
 		(
@@ -73,10 +58,6 @@ BEGIN
 			,Password
 			,DatumIngelogd		
 			,DatumUitgelogd
-			,IsActief
-			,Opmerking
-			,DatumAangemaakt  
-			,DatumGewijzigd
 		)
 		VALUES
 		(
@@ -85,10 +66,6 @@ BEGIN
 			,password	
 			,NULL
 			,NULL
-			,1	
-			,NULL
-			,SYSDATE(6)		
-			,SYSDATE(6)	
 		);
                
         COMMIT;	

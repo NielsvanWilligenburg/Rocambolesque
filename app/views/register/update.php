@@ -20,4 +20,4 @@
 
 </form>
 
-<a href="<?=URLROOT?>register/deleteAccount">Delete account</a>
+<a href="<?=URLROOT?>register/delete">delete</a>
