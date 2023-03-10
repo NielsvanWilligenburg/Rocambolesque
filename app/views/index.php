@@ -89,9 +89,9 @@
             <img src="https://static.rfstat.com/renderforest/images/v2/landing-pics/logo_landing/Food/food_logo_3.png" alt="Image 3">
             <img src="https://static.rfstat.com/renderforest/images/v2/landing-pics/logo_landing/Food/food_logo_4.png" alt="Image 4">
             <img src="https://static.rfstat.com/renderforest/images/v2/landing-pics/logo_landing/Food/food_logo_5.png" alt="Image 5">
-            <img src="https://thumbs.dreamstime.com/b/indian-food-logo-round-linear-turban-spoon-yellow-background-eps-166330970.jpg" alt="Image 6">
-            <img src="https://www.donanimhaber.com/images/images/haber/139649/1400x1050yemeksepeti-logosunu-degistirdi.jpg" alt="Image 7">
-            <img src="https://uploads.turbologo.com/uploads/design/preview_image/262570/preview_image20210721-23772-2g3qfg.png" alt="Image8">
+            <img src="https://logo-suggestion.renderforest.com/suggestions-images/298a/2bbb/298a2bbb7b8724163b713f7ec96b330d.png" alt="Image 6">
+            <img src="https://logo-suggestion.renderforest.com/suggestions-images/0049/c2b9/0049c2b9cf5791ef620e61ac759139d4.png" alt="Image 7">
+            <img src="https://logo-suggestion.renderforest.com/suggestions-images/46e2/3f89/46e23f8956e09846bc18f30d0876f0df.png" alt="Image8">
         </div>
     </div>
 
