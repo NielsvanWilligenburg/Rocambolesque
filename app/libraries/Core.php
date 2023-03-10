@@ -45,7 +45,7 @@ class Core {
     
             return $url;
         } else {
-            return array('', 'index');
+            return array('landinpages', 'index');
         }
         
     }
