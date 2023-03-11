@@ -1,13 +1,12 @@
 body {
   background-color: lightgrey;
-  font-family: Roboto Slab;
+  /* font-family: Roboto Slab; */
   width: 100%;
 }
 
 .special-offers span {
   color: #ffffff;
   margin: 10px -10px;
-
 }
 
 .special-offers {
@@ -21,7 +20,6 @@ body {
   margin-bottom: 20px;
 }
 
-
 /* .fotogenis{
     width: 100%;
     height: 100%;
@@ -32,7 +30,6 @@ body {
   background-color: #d99f6c;
   padding: 10px;
   padding-top: 20px;
-
 }
 
 .special-offers span.offers {
@@ -40,7 +37,6 @@ body {
   padding: 10px;
   margin: 10px -3px;
 }
-
 
 /* //----// */
 
@@ -54,7 +50,6 @@ body {
 .image {
   width: 45%;
   height: 500px;
-
 }
 
 .image img {
@@ -62,7 +57,6 @@ body {
   width: 400px;
   height: 300px;
   margin: 10px;
-
 }
 
 .description {
@@ -86,16 +80,13 @@ body {
 
   .image {
     width: 100%;
-
   }
 
   .image img {
     text-align: center;
     align-items: center;
     margin: auto auto 10px auto;
-
   }
-
 
   .restaurant-info {
     display: flex;
@@ -109,7 +100,6 @@ body {
   .opening-hours {
     margin-top: 10px;
     row-gap: 1rem;
-
   }
 
   .reservation-box {
@@ -153,7 +143,7 @@ body {
   padding: 60px;
   align-items: center;
   display: flex;
-  justify-content: space-around
+  justify-content: space-around;
 }
 
 .reservation-box p {
@@ -200,7 +190,6 @@ body {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   text-align: center;
-
 }
 
 .image-grid {
@@ -219,7 +208,6 @@ body {
   max-width: 200px;
   margin: 1rem;
 }
-
 
 .main-section {
   text-align: center;
