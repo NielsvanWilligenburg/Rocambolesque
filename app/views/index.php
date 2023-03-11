@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= SITENAME ?></title>
+include_once(APPROOT . '/views/includes/header.php');
 
-    <!-- // «««««««««« Css links »»»»»»»»»» // -->
-
-    <link rel="stylesheet" href="../../public/css/homepage.css">
-</head>
-
-<body>
+?>
 
     <div class="main-section">
         <img class="main-img" src="https://sondakikahaberleri.news/wp-content/uploads/2021/12/trilye-restoran-ankara-son.jpg" alt="mainfoto">
@@ -89,6 +79,8 @@
         </div>
     </div>
 
-</body>
+<?php
 
-</html>
+include_once(APPROOT . '/views/includes/footer.php');
+
+?>
