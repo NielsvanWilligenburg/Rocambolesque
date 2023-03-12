@@ -23,11 +23,11 @@ if (isset($_SESSION['id']))
 					<div class="form login">
 
 						<div class="subtext" id="username">
-							<input type="text" name="userString" placeholder="Username/Email" maxlength="50" required>
+							<input type="text" name="userString" placeholder="Username/Email" maxlength="50" required value="<?= $_POST['userString'] ?? "" ?>">
 							<a href="#">Forgot username</a>
 						</div>
 						<div class="subtext" id="password">
-							<input type="password" name="password" placeholder="Password" maxlength="50" required>
+							<input type="password" name="password" placeholder="Password" maxlength="50" required value="<?= $_POST['password'] ?? "" ?>">
 							<a href="#">Forgot password</a>
 						</div>
 						<div class="buttons">
@@ -48,7 +48,6 @@ if (isset($_SESSION['id']))
 		}
 	</script>
 
-</body>
 
 <?php
 

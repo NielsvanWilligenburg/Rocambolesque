@@ -29,7 +29,7 @@ class Register extends Controller
 
 			header("Location: " . URLROOT . "/register/update");
 		} else {
-			$person = $this->registerModel->findPersonById(13);
+			$person = $this->registerModel->findPersonById($_SESSION['id']);
 
 
 

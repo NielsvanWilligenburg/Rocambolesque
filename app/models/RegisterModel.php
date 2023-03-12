@@ -77,7 +77,7 @@ class RegisterModel
 		$this->db->bind(':lastname', $post['lastname'], PDO::PARAM_STR);
 		$this->db->bind(':email', $post['email'], PDO::PARAM_STR);
 		$this->db->bind(':mobile', $post['phoneNumber'], PDO::PARAM_STR);
-		$this->db->bind(':id', 13, PDO::PARAM_INT);
+		$this->db->bind(':id', $_SESSION['id'], PDO::PARAM_INT);
 		return $this->db->execute();
 		} catch (Exception $e) {
 			echo $e->getMessage();
