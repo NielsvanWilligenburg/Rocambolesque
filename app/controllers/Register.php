@@ -48,8 +48,10 @@ class Register extends Controller
 
 	public function delete()
 	{
-		echo "delete";
+		echo "U heeft succesvol uw account verwijderd";
 		$this->registerModel->deletePerson(13);
+
+		header("Refresh: 3; url=" . URLROOT . "register/index");
 	}
 
 	public function register()
