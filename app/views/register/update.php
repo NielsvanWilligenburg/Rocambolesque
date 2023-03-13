@@ -10,6 +10,9 @@
     <label for="lastname">Lastname:</label>
     <input type="text" name="lastname" id="lastname" value="<?=$data['lastname']?>">
 
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" value="<?=$data['username']?>">
+
     <label for="email">Email:</label>
     <input type="text" name="email" id="email" value="<?=$data['email']?>">
 

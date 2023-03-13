@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-class Controller 
+class Controller
 {
     public function model($model)
     {
@@ -10,9 +10,12 @@ class Controller
 
     public function view($view, $data = [])
     {
-        require_once '../app/views/includes/header.php';
 
-        if(file_exists('../app/views/' . $view . '.php')) {
+        // session_start();
+        include_once(APPROOT . '/views/includes/header.php');
+
+
+        if (file_exists('../app/views/' . $view . '.php')) {
             require_once '../app/views/' . $view . '.php';
         } else {
             die('View bestaat niet');
