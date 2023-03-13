@@ -7,7 +7,6 @@ class Register extends Controller
 	public function __construct()
 	{
 		$this->registerModel = $this->model('RegisterModel');
-		session_start();
 	}
 
 	public function index()
@@ -105,7 +104,9 @@ class Register extends Controller
 						var_dump($_SESSION);
 						// $_SESSION["userrole"] = $result->userrole;
 						$data['notification'] = "Inloggen succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "/");
+
+						header("Refresh: 3; url=" . URLROOT);
+
 					} else {
 						$data['notification'] = "Incorrecte inloggegevens";
 					}
@@ -122,7 +123,10 @@ class Register extends Controller
 
 	public function logout()
 	{
-		$this->view('register/logout');
+		unset($_SESSION["id"]);
+		session_destroy();
+
+		header("Location: " . URLROOT);
 	}
 
 	private function validateCreatePerson($data, $post)

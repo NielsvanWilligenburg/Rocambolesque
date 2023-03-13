@@ -1,5 +1,4 @@
 body {
-  background-color: lightgrey;
   /* font-family: Roboto Slab; */
   width: 100%;
 }
@@ -42,14 +41,20 @@ body {
 
 .images {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 40px 0px;
-  padding-left: 150px;
+
+  object-fit: cover;
+
+
 }
 
 .image {
   width: 45%;
   height: 500px;
+
+  object-fit: cover;
+
 }
 
 .image img {
@@ -64,7 +69,7 @@ body {
   margin-top: 5px;
 }
 
-@media only screen and (max-width: 874px) {
+@media only screen and (max-width: 910px) {
   img {
     width: 100%;
   }
@@ -72,20 +77,30 @@ body {
   .images {
     display: block;
     justify-content: space-between;
-    align-items: center;
+
     max-width: 100%;
-    padding-left: 0px;
-    margin-left: 10px;
+
+    padding: 20px;
+
   }
+
 
   .image {
     width: 100%;
+
+    /* text-align: center;
+    align-items: center; */
   }
 
   .image img {
     text-align: center;
     align-items: center;
     margin: auto auto 10px auto;
+
+
+    max-width: 100%;
+    height: auto;
+
   }
 
   .restaurant-info {
@@ -94,7 +109,11 @@ body {
     align-items: center;
     margin-left: 10px;
     justify-content: space-between;
-    padding-right: 35px;
+
+    max-width: 100%;
+    padding: 20px;
+    text-align: center;
+
   }
 
   .opening-hours {
@@ -115,24 +134,30 @@ body {
   margin-left: 10px;
   justify-content: space-between;
   padding-right: 3rem;
-  padding-left: 46px;
+  padding-left: 10px;
+
+  margin-left: 10px;
+
+
 }
 
 .restaurant-info img {
   max-width: 100%;
   height: auto;
   margin-right: 20px;
+
 }
 
 .opening-hours {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+
 }
 
 .opening-hours h3 {
   margin: 0;
-  font-size: 22px;
+  font-size: 32px;
   margin-bottom: 10px;
 }
 
@@ -196,6 +221,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
 }
 
 .image-grid-row {
