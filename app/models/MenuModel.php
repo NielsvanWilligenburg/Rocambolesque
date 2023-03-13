@@ -20,7 +20,7 @@ class MenuModel
                             FROM        Menudishes
                             INNER JOIN  Dishes
                             ON          Menudishes.DishId = Dishes.Id
-                            WHERE Dishes.Course = 'Appetizer'
+                            WHERE Dishes.Course = 'Appetizer' and Menudishes.MenuId = '1'
                             ORDER BY Dishes.Id DESC;";
         $this->db->query($menuSql);
         $result = $this->db->resultSet();
@@ -38,12 +38,31 @@ class MenuModel
                             FROM        Menudishes
                             INNER JOIN  Dishes
                             ON          Menudishes.DishId = Dishes.Id
-                            WHERE Dishes.Course = 'Main'
+                            WHERE Dishes.Course = 'Main' and Menudishes.MenuId = '1'
                             ORDER BY Dishes.Id DESC;";
         $this->db->query($menuSql);
         $result = $this->db->resultSet();
         return $result;
     }
+
+    public function getMenuDessert()
+    {
+        $menuSql = "SELECT  Dishes.Name,
+                            Dishes.Ingredients,
+                            Dishes.Category,
+                            Dishes.Course
+                            
+                            
+                            FROM        Menudishes
+                            INNER JOIN  Dishes
+                            ON          Menudishes.DishId = Dishes.Id
+                            WHERE Dishes.Course = 'Dessert' and Menudishes.MenuId = '1'
+                            ORDER BY Dishes.Id DESC;";
+        $this->db->query($menuSql);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+
 
 
     public function findMenuById($id)

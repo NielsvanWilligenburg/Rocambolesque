@@ -11,23 +11,42 @@ class Menu extends Controller
 
     public function index()
     {
-        // Laat de model de gegevens uit de database halen via method getMenuAppetizers()
-        $menuRecordAppetizer = $this->menuModel->getMenuAppetizers();
+        // Laat de model de gegevens uit de database halen via method getMenu-()
+        $menuRecordAppetizers = $this->menuModel->getMenuAppetizers();
+        $menuRecordMain = $this->menuModel->getMenuMain();
+        $menuRecordDessert = $this->menuModel->getMenuDessert();
 
-        $rows = '';
-        foreach ($menuRecordAppetizer as $value) {
-            $rows .= "<tr>
+
+        $appetizer = '';
+        foreach ($menuRecordAppetizers as $value) {
+            $appetizer .= "
                          <td>$value->Name</td>
                          <td>$value->Ingredients</td>
-                         <td>$value->Category</td>
-                         <td>$value->Course</td>
-                      </tr>";
+                         <br>";
+        }
+
+        $main = '';
+        foreach ($menuRecordMain as $value) {
+            $main .= "
+                         <td>$value->Name</td>
+                         <td>$value->Ingredients</td>
+                         <br>";
+        }
+
+        $dessert = '';
+        foreach ($menuRecordDessert as $value) {
+            $dessert .= "
+                         <td>$value->Name</td>
+                         <td>$value->Ingredients</td>
+                         <br>";
         }
 
         // Stuur de gegevens uit de model naar de view via het $data array
         $data = [
-            'title' => 'Appetizers',
-            'rows' => $rows
+            'title' => 'Items',
+            'appetizer' => $appetizer,
+            'main' => $main,
+            'dessert' => $dessert
         ];
 
         $this->view('menu/index', $data);
@@ -58,7 +77,7 @@ class Menu extends Controller
 
 
 
-    
+
     /* Werkt nog niet */
 
     public function updateMenu()
