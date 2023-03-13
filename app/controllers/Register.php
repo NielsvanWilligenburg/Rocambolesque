@@ -25,11 +25,18 @@ class Register extends Controller
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-			$this->registerModel->updatePerson($_POST);
+			if (strlen($_POST['username']) > 16) {
+				echo "Username is te lang, maximaal 16 karakters";
+				header("Refresh: 3; url=" . URLROOT . "register/update");
+			} else {
+				$this->registerModel->updatePerson($_POST);
 
-			header("Location: " . URLROOT . "/register/update");
+				header("Location: " . URLROOT . "/register/update");
+			}
 		} else {
 			$person = $this->registerModel->findPersonById($_SESSION['id']);
+			// $person = $this->registerModel->findPersonById(4);
+
 
 
 			$data = [
@@ -37,6 +44,7 @@ class Register extends Controller
 				'firstname' => $person->Firstname,
 				'infix' => $person->Infix,
 				'lastname' => $person->Lastname,
+				'username' => $person->Username,
 				'email' => $person->Email,
 				'mobile' => $person->Mobile
 			];
@@ -47,14 +55,16 @@ class Register extends Controller
 
 	public function delete()
 	{
-		echo "delete";
+		echo "U heeft succesvol uw account verwijderd";
 		$this->registerModel->deletePerson($_SESSION['id']);
-		header("Location: " . URLROOT);
+
+		header("Refresh: 3; url=" . URLROOT . "register/index");
 	}
 
 	public function register()
 	{
-		$data = ["notification" => ""];
+		$notification = "";
+		$data = ["notification" => $notification];
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			try {
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -91,10 +101,12 @@ class Register extends Controller
 					if (password_verify($_POST['password'], $result->Password)) {
 						// login
 						$_SESSION['id'] = $result->Id;
-
+						var_dump($_SESSION);
 						// $_SESSION["userrole"] = $result->userrole;
 						$data['notification'] = "Inloggen succesvol, u wordt binnen 3 seconden herleid";
+
 						header("Refresh: 3; url=" . URLROOT);
+
 					} else {
 						$data['notification'] = "Incorrecte inloggegevens";
 					}
@@ -151,5 +163,10 @@ class Register extends Controller
 		else if ($this->registerModel->findUsername($post['username']))
 			$data['notification'] = "This username has already been used";
 		return ($data);
+	}
+
+	function deleteAccount()
+	{
+		echo "delete account";
 	}
 }
