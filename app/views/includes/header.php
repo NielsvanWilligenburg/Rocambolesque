@@ -13,6 +13,7 @@ include_once(APPROOT . '/views/includes/functions.php');
 
 	<!-- // «««««««««« Css links »»»»»»»»»» // -->
 	<link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/homepage.css">
 
 
 	<!-- // «««««««««« Google fonts »»»»»»»»»» // -->
