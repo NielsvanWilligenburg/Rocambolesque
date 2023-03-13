@@ -127,7 +127,7 @@ CREATE TABLE reservation(
     `PersonId` 			INT 			NOT NULL, 
 	`OpeningtimeId` 	INT				NULL,
     `TableId`			INT				NULL,
-    `Guests`			INT 			NOT NULL,
+    `Guests`			INT   	 		NOT NULL,
     `Children`			INT				NOT NULL,
     `Date`				DATE			NOT NULL,
 	`Time`				TIME 			NOT NULL,

@@ -9,8 +9,8 @@ CREATE PROCEDURE spCreateReservation
 	 personId				int
 	,openingtimeId			int	
 	,tableId				int
-	,guests					int
-	,children				int
+	,guests					VARCHAR(1)
+	,children				VARCHAR(1)
     ,dateReservation		date
     ,timeReservation 		time
 )
