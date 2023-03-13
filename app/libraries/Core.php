@@ -9,6 +9,7 @@ class Core {
     // constructor
     public function __construct() 
     {
+		session_start();
         $url = $this->getUrl();
 
         // kijk of bestand bestaat
