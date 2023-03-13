@@ -74,15 +74,22 @@ class RegisterModel
 									con.mobile = :mobile
 								where per.Id = con.PersonId
 									and per.Id = :id");
-			$this->db->bind(':firstname', $post['firstname'], PDO::PARAM_STR);
-			$this->db->bind(':infix', $post['infix'], PDO::PARAM_STR);
-			$this->db->bind(':lastname', $post['lastname'], PDO::PARAM_STR);
-			$this->db->bind(':email', $post['email'], PDO::PARAM_STR);
-			$this->db->bind(':mobile', $post['phoneNumber'], PDO::PARAM_STR);
-			$this->db->bind(':id', 2, PDO::PARAM_INT);
-			return $this->db->execute();
+		$this->db->bind(':firstname', $post['firstname'], PDO::PARAM_STR);
+		$this->db->bind(':infix', $post['infix'], PDO::PARAM_STR);
+		$this->db->bind(':lastname', $post['lastname'], PDO::PARAM_STR);
+		$this->db->bind(':email', $post['email'], PDO::PARAM_STR);
+		$this->db->bind(':mobile', $post['phoneNumber'], PDO::PARAM_STR);
+		$this->db->bind(':id', $_SESSION['id'], PDO::PARAM_INT);
+		return $this->db->execute();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
+	}
+
+	public function deletePerson($id)
+	{
+		$this->db->query("call delete_person_and_related_tables(:id)");
+		$this->db->bind(':id', $id, PDO::PARAM_INT);
+		return $this->db->execute();
 	}
 }

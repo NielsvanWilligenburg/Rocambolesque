@@ -236,7 +236,12 @@ VALUES
     (1, 'Zaterdag', '17:00:00', '22:00:00'),
     (1, 'Zondag', '17:00:00', '22:00:00');
 
--- All the stored procedures below V
+
+/**
+ *	All the stored procedures below V
+**/
+
+
 USE Rocambolesque;
 DROP PROCEDURE IF EXISTS spCreatePerson;
 
@@ -245,6 +250,7 @@ DELIMITER //
 CREATE PROCEDURE spCreatePerson
 (
 	 firstname				VARCHAR(50)
+	,infix					VARCHAR(20)
 	,lastname				VARCHAR(50)
 	,username				VARCHAR(50)
 	,password				VARCHAR(60)
@@ -267,19 +273,11 @@ BEGIN
 		(
 			 Firstname			
 			,Lastname		
-			,IsActief	
-			,Opmerking    	
-			,DatumAangemaakt  
-			,DatumGewijzigd	
 		)
 		VALUES
 		(
 			 firstname
 			,lastname
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
 		);
 		
         SET personId = LAST_INSERT_ID();
@@ -289,20 +287,12 @@ BEGIN
 			 PersonId
 			,Email
 			,Mobile		
-			,IsActief		
-			,Opmerking   	
-			,DatumAangemaakt
-			,DatumGewijzigd		
 		)
 		VALUES
 		(
 			 personId
 			,email
 			,mobile
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
 		);
 		INSERT INTO user
 		(
@@ -311,10 +301,6 @@ BEGIN
 			,Password
 			,DatumIngelogd		
 			,DatumUitgelogd
-			,IsActief
-			,Opmerking
-			,DatumAangemaakt  
-			,DatumGewijzigd
 		)
 		VALUES
 		(
@@ -323,10 +309,6 @@ BEGIN
 			,password	
 			,NULL
 			,NULL
-			,1	
-			,NULL
-			,SYSDATE(6)		
-			,SYSDATE(6)	
 		);
                
         COMMIT;	
@@ -359,6 +341,64 @@ END //
 
 
 USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindPersonByEmailOrUsername;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindPersonByEmailOrUsername
+(
+	userString				VARCHAR(50)
+)
+
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;
+    	SELECT `user`.Password, per.Id FROM `person` per INNER JOIN `contact` con ON per.Id = con.PersonId INNER JOIN `user` ON per.Id = `user`.PersonId WHERE con.Email = userString OR `user`.Username = userString;
+               
+        COMMIT;	
+END //
+
+DROP PROCEDURE IF EXISTS delete_person_and_related_tables;
+
+DELIMITER //
+
+CREATE PROCEDURE delete_person_and_related_tables(
+    IN person_id INT
+)
+BEGIN
+    DELETE FROM userrole WHERE UserId IN (SELECT Id FROM user WHERE PersonId = person_id);
+    DELETE FROM user WHERE PersonId = person_id;
+    DELETE FROM contact WHERE PersonId = person_id;
+    DELETE FROM reservation WHERE PersonId = person_id;
+    DELETE FROM person WHERE Id = person_id;
+END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delete_person_and_related_tables;
+
+DELIMITER //
+
+CREATE PROCEDURE delete_person_and_related_tables(
+    IN person_id INT
+)
+BEGIN
+    DELETE FROM userrole WHERE UserId IN (SELECT Id FROM user WHERE PersonId = person_id);
+    DELETE FROM user WHERE PersonId = person_id;
+    DELETE FROM contact WHERE PersonId = person_id;
+    DELETE FROM reservation WHERE PersonId = person_id;
+    DELETE FROM person WHERE Id = person_id;
+END //
+
+DELIMITER ;
+
+USE Rocambolesque;
 DROP PROCEDURE IF EXISTS spFindUsername;
 
 DELIMITER //
@@ -378,94 +418,6 @@ BEGIN
             
 	START TRANSACTION;
     	SELECT * FROM user WHERE Username = usernameCheck;
-               
-        COMMIT;	
-END //
-
--- CREATE RESERVATION
-USE Rocambolesque;
-DROP PROCEDURE IF EXISTS spCreateReservation;
-
-DELIMITER //
-    
-CREATE PROCEDURE spCreateReservation
-(
-	 personId				VARCHAR(50)
-	,priceId				VARCHAR(50)
-	,openingtimeId			VARCHAR(50)
-	,tableId				VARCHAR(60)
-	,guests					VARCHAR(50)
-	,children				VARCHAR(15)
-    ,date					date
-    ,time 					time
-)
-
-BEGIN
-
-    DECLARE personId 	INT UNSIGNED DEFAULT 0;
-    
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-	BEGIN
-    	ROLLBACK;
-    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
-	END;
-            
-	START TRANSACTION;					
-		INSERT INTO person
-		(
-			 PersonId			
-			,PriceId
-            ,OpeningtimeId
-            ,TableId
-            ,Guests
-            ,Children
-            ,Date
-            ,Time
-			,IsActief	
-			,Opmerking    	
-			,DatumAangemaakt  
-			,DatumGewijzigd	
-		)
-		VALUES
-		(
-			personId				
-			,priceId				
-			,openingtimeId			
-			,tableId				
-			,guests					
-			,children				
-			,date					
-			,time 	
-			,1
-			,NULL
-			,SYSDATE(6)	
-			,SYSDATE(6)	
-		);
-               
-        COMMIT;	
-END //
-
-
-USE Rocambolesque;
-DROP PROCEDURE IF EXISTS spFindPersonByEmailOrUsername;
-
-DELIMITER //
-    
-CREATE PROCEDURE spFindPersonByEmailOrUsername
-(
-	userString				VARCHAR(50)
-)
-
-BEGIN
-
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-	BEGIN
-    	ROLLBACK;
-    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
-	END;
-            
-	START TRANSACTION;
-    	SELECT `user`.Password, `person`.Id FROM `person` per INNER JOIN `contact` con ON per.Id = con.PersonId INNER JOIN `user` ON per.Id = `user`.PersonId WHERE con.Email = userString OR `user`.Username = userString;
                
         COMMIT;	
 END //
