@@ -9,14 +9,17 @@
         </div>
     </div>
 
+    <h3>Appetizers</h3>
     <tr>
         <?= $data['appetizer'] ?>
     </tr>
     <br>
+    <h3>Main</h3>
     <tr>
         <?= $data['main'] ?>
     </tr>
     <br>
+    <h3>Dessert</h3>
     <tr>
         <?= $data['dessert'] ?>
     </tr>

@@ -21,7 +21,8 @@ class Menu extends Controller
         foreach ($menuRecordAppetizers as $value) {
             $appetizer .= "
                          <td>$value->Name</td>
-                         <td>$value->Ingredients</td>
+                         <br>
+                         <h5>$value->Ingredients</h5>
                          <br>";
         }
 
@@ -29,15 +30,18 @@ class Menu extends Controller
         foreach ($menuRecordMain as $value) {
             $main .= "
                          <td>$value->Name</td>
-                         <td>$value->Ingredients</td>
+                         <br>
+                         <h5>$value->Ingredients</h5>
                          <br>";
         }
 
         $dessert = '';
+        $dessertIng = '';
         foreach ($menuRecordDessert as $value) {
             $dessert .= "
                          <td>$value->Name</td>
-                         <td>$value->Ingredients</td>
+                         <br>
+                         <h5>$value->Ingredients</h5>
                          <br>";
         }
 
@@ -46,7 +50,8 @@ class Menu extends Controller
             'title' => 'Items',
             'appetizer' => $appetizer,
             'main' => $main,
-            'dessert' => $dessert
+            'dessert' => $dessert,
+            'dessertIng' => $dessertIng
         ];
 
         $this->view('menu/index', $data);
