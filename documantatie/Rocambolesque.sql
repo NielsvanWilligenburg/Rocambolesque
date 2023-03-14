@@ -127,7 +127,7 @@ CREATE TABLE reservation(
     `PersonId` 			INT 			NOT NULL, 
 	`OpeningtimeId` 	INT				NULL,
     `TableId`			INT				NULL,
-    `Guests`			INT 			NOT NULL,
+    `Guests`			INT   	 		NOT NULL,
     `Children`			INT				NOT NULL,
     `Date`				DATE			NOT NULL,
 	`Time`				TIME 			NOT NULL,
@@ -420,4 +420,92 @@ BEGIN
     	SELECT * FROM user WHERE Username = usernameCheck;
                
         COMMIT;	
+END //
+
+
+-- CREATE RESERVATION STORED PROCEDURE
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spCreateReservation;
+
+DELIMITER //
+    
+CREATE PROCEDURE spCreateReservation
+(
+	 personId				int
+	,openingtimeId			int	
+	,tableId				int
+	,guests					int
+	,children				int
+    ,dateReservation		date
+    ,timeReservation 		time
+)
+
+BEGIN
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;					
+		INSERT INTO reservation
+		(
+			 PersonId			
+            ,OpeningtimeId
+            ,TableId
+            ,Guests
+            ,Children
+            ,Date
+            ,Time
+		)
+		VALUES
+		(
+			personId				
+			,openingtimeId			
+			,tableId				
+			,guests					
+			,children				
+			,dateReservation		
+			,timeReservation 		
+		);	
+END //
+
+
+-- FIND TABLE STORED PROCEDURE
+
+USE Rocambolesque;
+
+DROP PROCEDURE IF EXISTS spFindTable;
+
+DELIMITER //
+
+CREATE PROCEDURE spFindTable(
+	guestCheck					INT,
+    childCheck					INT,
+    dateCheck					VARCHAR(10),
+    timeStartCheck				VARCHAR(8)
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+    
+    START TRANSACTION;
+    SELECT tab.Id
+    FROM `table` tab
+    WHERE MaxGuests >= guestCheck 
+		AND MaxChildren >= childCheck
+        AND Id NOT IN (	SELECT tab.Id 
+						FROM `table` tab 
+                        LEFT JOIN reservation res 
+                        ON res.TableId = tab.Id 
+                        WHERE `Date` = dateCheck 
+							AND `Time` BETWEEN timeStartCheck AND '22:00:00')
+	ORDER BY MaxGuests ASC, MaxChildren ASC LIMIT 1;
+		
+    
 END //
