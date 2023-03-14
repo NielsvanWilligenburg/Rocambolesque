@@ -1,4 +1,6 @@
-.container, .row, .col {
+.container,
+.row,
+.col {
 	display: flex;
 }
 
@@ -9,6 +11,11 @@
 	.row {
 		width: 100%;
 		flex-wrap: wrap;
-		
+
 	}
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
 }

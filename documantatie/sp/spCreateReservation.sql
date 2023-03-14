@@ -1,4 +1,3 @@
--- All the stored procedures below V
 USE Rocambolesque;
 DROP PROCEDURE IF EXISTS spCreateReservation;
 
@@ -9,8 +8,8 @@ CREATE PROCEDURE spCreateReservation
 	 personId				int
 	,openingtimeId			int	
 	,tableId				int
-	,guests					VARCHAR(1)
-	,children				VARCHAR(1)
+	,guests					int
+	,children				int
     ,dateReservation		date
     ,timeReservation 		time
 )

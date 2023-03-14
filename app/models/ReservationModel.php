@@ -9,10 +9,9 @@ class ReservationModel{
     }
 
     public function createReservation($post, $personId, $tableId){
-        // var_dump($tableId);
-        $this->db->query("CALL spCreateReservation(:PersonId, 1, :TableId, :Guests, :Children, :Date, :Time)");
+        $this->db->query("CALL spCreateReservation(:PersonId, :OpeningtimeId, :TableId, :Guests, :Children, :Date, :Time)");
         $this->db->bind(':PersonId', $personId, PDO::PARAM_INT);
-        // $this->db->bind(':OpeningtimeId', $post['openingtimeId'], PDO::PARAM_INT);
+        $this->db->bind(':OpeningtimeId', 1, PDO::PARAM_INT);
         $this->db->bind(':TableId', $tableId, PDO::PARAM_INT);
         $this->db->bind(':Guests', $post['guests'], PDO::PARAM_INT);
         $this->db->bind(':Children', $post['children'], PDO::PARAM_INT);
@@ -23,8 +22,8 @@ class ReservationModel{
 
     public function findTable($post){
         $this->db->query("CALL spFindTable(:guestCheck, :childCheck, :dateCheck, :timeStartCheck)");
-        $this->db->bind(':guestCheck', $post['guests'], PDO::PARAM_STR);
-        $this->db->bind(':childCheck', $post['children'], PDO::PARAM_STR);
+        $this->db->bind(':guestCheck', $post['guests'], PDO::PARAM_INT);
+        $this->db->bind(':childCheck', $post['children'], PDO::PARAM_INT);
         $this->db->bind(':dateCheck', $post['date'], PDO::PARAM_STR);
         $this->db->bind(':timeStartCheck', $post['time'], PDO::PARAM_STR);
         return $this->db->single();

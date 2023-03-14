@@ -5,8 +5,7 @@ class Reservation extends Controller
     private $reservationModel;
 
     public function __construct(){
-        $this->reservationModel = $this->model('ReservationModel');
-        session_start();  
+        $this->reservationModel = $this->model('ReservationModel'); 
     }
 
     public function index(){
@@ -23,10 +22,10 @@ class Reservation extends Controller
                 
                 
                 $data = $this->validateCreateReservation($data, $_POST);
-            
+                
                 if(strlen($data["notification"]) < 1) {
                     $result = $this->reservationModel->createReservation($_POST, $_SESSION['id'], $tableId);
-                     var_dump($result);
+                    // var_dump($result); exit;
                     if ($result) {
 						$data['notification'] = "Reservation succesfull";
 						header("Refresh: 3; url=" . URLROOT . "reservation/reservation");
@@ -43,10 +42,6 @@ class Reservation extends Controller
     }
 
     public function validateCreateReservation($data, $post){
-        // var_dump($data);
-        // var_dump($post);
-        // exit();
-        //return array('notification' => 'RRA');
         foreach($post as $key => $value){
             if (empty($value)) {
 				if ($key != "children") {
