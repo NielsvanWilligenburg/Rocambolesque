@@ -3,7 +3,7 @@ include_once(APPROOT . '/views/includes/header.php');
 
 
 $data = $data ?? [];
-var_dump($data);
+// var_dump($data);
 ?>
 
 <div class="row">

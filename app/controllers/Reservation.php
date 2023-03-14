@@ -10,7 +10,7 @@ class Reservation extends Controller
 
     public function index(){
 
-        $this->view('reservation/reservation');
+        $this->view('reservation/createReservation');
     }
 
     public function createReservation(){
@@ -28,7 +28,7 @@ class Reservation extends Controller
                     // var_dump($result); exit;
                     if ($result) {
 						$data['notification'] = "Reservation succesfull";
-						header("Refresh: 3; url=" . URLROOT . "reservation/reservation");
+						header("Refresh: 3; url=" . URLROOT . "reservation/createReservation");
 					} else {
 						$data['notification'] = "Something went wrong, please try again or contact us.";
 					}
@@ -38,7 +38,10 @@ class Reservation extends Controller
 				$data['notification'] = "Something went wrong, please try again or contact us.";
 			}
         }
-        $this->view('reservation/reservation', $data);
+        else {
+            $data['notification'] = 'make a reservation';
+        }
+        $this->view('reservation/createReservation', $data);
     }
 
     public function validateCreateReservation($data, $post){
