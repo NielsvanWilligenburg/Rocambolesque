@@ -25,7 +25,6 @@ class Reservation extends Controller
                 
                 if(strlen($data["notification"]) < 1) {
                     $result = $this->reservationModel->createReservation($_POST, $_SESSION['id'], $tableId);
-                    // var_dump($result); exit;
                     if ($result) {
 						$data['notification'] = "Reservation succesfull";
 						header("Refresh: 3; url=" . URLROOT . "reservation/createReservation");
