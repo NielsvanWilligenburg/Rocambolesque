@@ -43,4 +43,5 @@ BEGIN
 			,dateReservation		
 			,timeReservation 		
 		);	
+	COMMIT;
 END //
