@@ -18,13 +18,12 @@ class Reservation extends Controller
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             try{
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $tableId = $this->reservationModel->findTable($_POST)->Id;
+                $tableId = $this->reservationModel->findTable($_POST);
                 
+                $data = $this->validateCreateReservation($data, $_POST, $tableId);
                 
-                $data = $this->validateCreateReservation($data, $_POST);
-                
-                if(strlen($data["notification"]) < 1) {
-                    $result = $this->reservationModel->createReservation($_POST, $_SESSION['id'], $tableId);
+                if (strlen($data["notification"]) < 1) {
+                    $result = $this->reservationModel->createReservation($_POST, $_SESSION['id'], $tableId->Id);
                     if ($result) {
 						$data['notification'] = "Reservation succesfull";
 						header("Refresh: 3; url=" . URLROOT . "reservation/createReservation");
@@ -43,8 +42,8 @@ class Reservation extends Controller
         $this->view('reservation/createReservation', $data);
     }
 
-    public function validateCreateReservation($data, $post){
-        foreach($post as $key => $value){
+    public function validateCreateReservation($data, $post, $tableId){
+			foreach($post as $key => $value){
             if (empty($value)) {
 				if ($key != "children") {
 					$data['notification'] = "Not all fields are filled in.";
@@ -62,11 +61,8 @@ class Reservation extends Controller
 			$data['notification'] = "Please reserve before 20:00, a sitting is 2 hours long";
         else if ($post['time'] < '17:00:00')
 			$data['notification'] = "We open at 17:00";
-        else if ($this->reservationModel->findTable($_POST) == null)
+        else if ($tableId == null)
 			$data['notification'] = "No tables available";
-		// else if ('price check')
-		// 	$data['notification'] = "Vul een geldig email adres in";
-        // var_dump($data);
 		return($data);
     }
 }
