@@ -1,3 +1,4 @@
+// Hamburger icon function for navigation bar  
 const navIcon = document.querySelector('.nav-icon');
 
 navIcon.addEventListener('click', () => {

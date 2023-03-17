@@ -470,6 +470,7 @@ BEGIN
 			,dateReservation		
 			,timeReservation 		
 		);	
+	COMMIT;
 END //
 
 
@@ -504,8 +505,7 @@ BEGIN
                         LEFT JOIN reservation res 
                         ON res.TableId = tab.Id 
                         WHERE `Date` = dateCheck 
-							AND `Time` BETWEEN timeStartCheck AND '22:00:00')
+							AND `Time` BETWEEN DATE_SUB(timeStartCheck, INTERVAL 2 HOUR) AND DATE_ADD(timeStartCheck, INTERVAL 2 HOUR))
 	ORDER BY MaxGuests ASC, MaxChildren ASC LIMIT 1;
-		
-    
+    COMMIT;
 END //
