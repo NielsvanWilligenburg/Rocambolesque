@@ -1,6 +1,12 @@
-@mixin heading-background ($X, $Y) {
+@mixin heading-background ($Length) {
+    padding: 10px;
+    transform: translateX(-25%);
     white-space: nowrap;
     background-color: #FFC2C2;
-    transform: translate(-20px, 20px);
-    box-shadow: $X $Y #cfbbbb;
+    box-shadow: $Length 10px #cfbbbb;
+
+    h1 {
+        translate: calc($Length/2) 5px;
+        font-weight: 200;
+    }
 }
