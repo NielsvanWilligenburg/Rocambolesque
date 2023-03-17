@@ -8,9 +8,11 @@ $data = $data ?? [];
 
 <div class="row">
 
+<div class="heading">
 	<h1>Reservation</h1>
+</div>
+	
 	<p><?= $data['notification']; ?></p>
-
 	<form action="<?= URLROOT; ?>Reservation/createReservation" method="post" id="reservationForm">
 		<div class="form">
 			<div class="input-reservation">
@@ -31,7 +33,7 @@ $data = $data ?? [];
 			</div>
 
 		</div>
-		<button type="submit" form="reservationForm" value="submit">Submit</button>
+		<button class="link-empty" type="submit" form="reservationForm" value="submit">Submit</button>
 	</form>
 </div>
 

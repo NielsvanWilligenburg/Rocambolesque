@@ -62,9 +62,8 @@ class Reservation extends Controller
 			$data['notification'] = "Please reserve before 20:00, a sitting is 2 hours long";
         else if ($post['time'] < '17:00:00')
 			$data['notification'] = "We open at 17:00";
-        //var_dump($this->reservationModel->findTable($post['guests'], $post['children'], $post['date'], $post['time'], $post['time']));
-        // else if ($this->reservationModel->findTable($post['guests'], $post['children'], $post['date'], $post['time'], $post['time']) == null)
-		// 	$data['notification'] = "No tables available";
+        else if ($this->reservationModel->findTable($_POST) == null)
+			$data['notification'] = "No tables available";
 		// else if ('price check')
 		// 	$data['notification'] = "Vul een geldig email adres in";
         // var_dump($data);

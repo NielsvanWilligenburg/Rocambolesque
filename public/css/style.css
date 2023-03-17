@@ -376,24 +376,46 @@ div.row {
   flex-direction: column;
   align-items: center;
 }
-div.row div.form {
+div.row .heading {
+  padding: 10px;
+  transform: translateX(-25%);
+  white-space: nowrap;
+  background-color: #FFC2C2;
+  box-shadow: 80px 10px #cfbbbb;
+  margin: 100px 0;
+}
+div.row .heading h1 {
+  translate: 40px 5px;
+  font-weight: 200;
+}
+div.row p {
+  margin: 20px;
+  font-size: 150%;
+}
+div.row form {
+  display: flex;
   flex-direction: column;
   align-items: center;
+}
+div.row form div.form {
   background-color: #ECEEFF;
   border-radius: 20px;
   padding: 50px;
 }
-div.row div.form input {
+div.row form div.form input {
   padding: 20px;
   border: none;
   width: 400px;
 }
-div.row div.form div.input-reservation {
+div.row form div.form div.input-reservation {
   display: flex;
   flex-direction: column;
 }
-div.row div.form button {
+div.row form button {
+  margin-top: 100px;
   width: 500px;
+  padding: 10px;
+  color: teal;
 }
 
 body {
