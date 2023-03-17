@@ -21,24 +21,26 @@ class Register extends Controller
 
 	public function update()
 	{
-
+		// Check if the request method is POST, and sanitize the POST variables
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			// Filter de POST variabelen
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+			// If the length of the username is greater than 16 characters, display an error message and redirect after 3 seconds
 			if (strlen($_POST['username']) > 16) {
 				echo "Username is te lang, maximaal 16 karakters";
 				header("Refresh: 3; url=" . URLROOT . "register/update");
 			} else {
+				// If the length of the username is less than or equal to 16 characters, update the user data in the database and redirect to the update page
 				$this->registerModel->updatePerson($_POST);
 
 				header("Location: " . URLROOT . "/register/update");
 			}
 		} else {
+			// If the request method is not POST, retrieve the user data and pass it to the update page
 			$person = $this->registerModel->findPersonById($_SESSION['id']);
-			// $person = $this->registerModel->findPersonById(4);
 
-
-
+			// Create an array with the user data
 			$data = [
 				'title' => 'Profile',
 				'firstname' => $person->Firstname,
@@ -49,12 +51,14 @@ class Register extends Controller
 				'mobile' => $person->Mobile
 			];
 
+			// Pass the data to the update page
 			$this->view('register/update', $data);
 		}
 	}
 
 	public function delete()
 	{
+		// Delete the user data from the database and redirect to the register page
 		echo "U heeft succesvol uw account verwijderd";
 		$this->registerModel->deletePerson($_SESSION['id']);
 
