@@ -85,7 +85,7 @@ class Menu extends Controller
 
     /* Werkt nog niet */
 
-    public function updateMenu()
+    public function update()
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

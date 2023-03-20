@@ -63,12 +63,12 @@ class MenuModel
         return $result;
     }
 
-
-
     public function findMenuById($id)
     {
-        $this->db->query("Select dis.Name, dis.Ingredients, dis.Category, dis.Course, from dishes as dis
-						  where dis.Id = :id");
+        $this->db->query("Select Dis.Name, Dis.Ingredients, Dis.Category, Dis.Course
+                            from Dishes Dis 
+                            inner join MenuDishes Men
+                            on Men.DishId = Dis.Id = :id");
         $this->db->bind(":id", $id, PDO::PARAM_INT);
         return $this->db->single();
     }

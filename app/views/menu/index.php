@@ -1,12 +1,9 @@
-<img src="../../../public/images//Menu_Test_Photos/Test_Photo_1.jpg" alt="Restaurant" class="Menu_Photo_Test">
+<img src="../../../public/images/Menu_Test_Photos/Test_Photo_1.jpg" alt="Restaurant" class="Menu_Photo_Test">
 
 
 <body>
     <div id="MenuBoxDiv">
-        <h3>Our Story</h3>
-        <div class="Box1">
-            <div class="Box2"></div>
-        </div>
+        <h3>Winter Menu</h3>
     </div>
 
     <h3>Appetizers</h3>
