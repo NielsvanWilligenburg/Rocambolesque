@@ -28,19 +28,19 @@ include_once(APPROOT . '/views/includes/functions.php');
 		<div class="menus">
 			<div class="menu">
 				<ul>
-					<li><a href="">Home</a></li>
+					<li><a href="<?= URLROOT ?>">Home</a></li>
 					<li><a href="">Menu</a></li>
-					<li><a href="">About</a></li>
+					<li><a href="<?= URLROOT . "pages/about" ?>">About</a></li>
 					<li><a href="">Contact</a></li>
 				</ul>
 			</div>
 			<div class="user-menu">
 				<?php
 				if (isset($_SESSION['id']))
-					echo "<a class='link-empty' href='" . URLROOT . "register/logout'>Log out</a>";
+					echo "<a class='link-empty' href='" . URLROOT . "user/logout'>Log out</a>";
 				else
-					echo "<a class='link-empty' href='" . URLROOT . "register/login'>Log in</a>
-				<a class='link-fill' href='" . URLROOT . "register/register'>Register</a>"; ?>
+					echo "<a class='link-empty' href='" . URLROOT . "user/login'>Log in</a>
+				<a class='link-fill' href='" . URLROOT . "user/register'>Register</a>"; ?>
 			</div>
 		</div>
 		<div class="nav-icon">

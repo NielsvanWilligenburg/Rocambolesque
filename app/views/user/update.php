@@ -1,6 +1,6 @@
 <h1><?= $data['title']?></h1>
 
-<form action="<?=URLROOT?>register/update" method="post">
+<form action="<?=URLROOT?>user/update" method="post">
     <label for="firstname">Firstname:</label>
     <input type="text" name="firstname" id="firstname" value="<?=$data['firstname']?>">
 
@@ -23,4 +23,4 @@
 
 </form>
 
-<a href="<?=URLROOT?>register/delete">delete</a>
+<a href="<?=URLROOT?>user/delete">delete</a>
