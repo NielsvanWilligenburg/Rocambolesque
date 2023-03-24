@@ -1,7 +1,7 @@
 <div class="head">
 	<h1>Register</h1>
 </div>
-<form action="<?= URLROOT; ?>register/register" method="post" id="registerForm">
+<form action="<?= URLROOT; ?>user/register" method="post" id="registerForm">
 	<div class="form register">
 		<div class="name">
 			<div class="required firstname">
@@ -35,14 +35,14 @@
 		</div>
 		<div class="buttons">
 			<div id="submit" class="button">
-				<p class="notification"><?= $data['notification'] ?></p>
-				<a class="link-empty submit" onclick="submitForm()">Register</a>
+				<p class="notification <?= $data['success'] ?>"><?= $data['notification'] ?></p>
+				<a class="link-empty submit" type="submit" onclick="submitForm()">Register</a>
 			</div>
 			<div class="or">
 				<p>or</p>
 			</div>
 			<div class="button to-login">
-				<a class="link-empty submit" href="<?= URLROOT; ?>register/login">Login</a>
+				<a class="link-empty submit" href="<?= URLROOT; ?>user/login">Login</a>
 			</div>
 		</div>
 	</div>

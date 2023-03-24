@@ -1,12 +1,12 @@
 <?php
 
-class Register extends Controller
+class User extends Controller
 {
-	private $registerModel;
+	private $userModel;
 
 	public function __construct()
 	{
-		$this->registerModel = $this->model('RegisterModel');
+		$this->userModel = $this->model('UserModel');
 	}
 
 	public function index()
@@ -16,7 +16,7 @@ class Register extends Controller
 			'description' => 'This is the example page'
 		];
 
-		$this->view('register/index', $data);
+		$this->view('user/index', $data);
 	}
 
 	public function update()
@@ -29,16 +29,16 @@ class Register extends Controller
 			// If the length of the username is greater than 16 characters, display an error message and redirect after 3 seconds
 			if (strlen($_POST['username']) > 16) {
 				echo "Username is te lang, maximaal 16 karakters";
-				header("Refresh: 3; url=" . URLROOT . "register/update");
+				header("Refresh: 3; url=" . URLROOT . "user/update");
 			} else {
 				// If the length of the username is less than or equal to 16 characters, update the user data in the database and redirect to the update page
-				$this->registerModel->updatePerson($_POST);
+				$this->userModel->updatePerson($_POST);
 
-				header("Location: " . URLROOT . "/register/update");
+				header("Location: " . URLROOT . "/user/update");
 			}
 		} else {
 			// If the request method is not POST, retrieve the user data and pass it to the update page
-			$person = $this->registerModel->findPersonById($_SESSION['id']);
+			$person = $this->userModel->findPersonById($_SESSION['id']);
 
 			// Create an array with the user data
 			$data = [
@@ -52,7 +52,7 @@ class Register extends Controller
 			];
 
 			// Pass the data to the update page
-			$this->view('register/update', $data);
+			$this->view('user/update', $data);
 		}
 	}
 
@@ -60,27 +60,36 @@ class Register extends Controller
 	{
 		// Delete the user data from the database and redirect to the register page
 		echo "U heeft succesvol uw account verwijderd";
-		$this->registerModel->deletePerson($_SESSION['id']);
+		$this->userModel->deletePerson($_SESSION['id']);
 
-		header("Refresh: 3; url=" . URLROOT . "register/index");
+		header("Refresh: 3; url=" . URLROOT . "user/index");
 	}
 
 	public function register()
 	{
-		$notification = "";
-		$data = ["notification" => $notification];
+		// Initialize variables for future use
+		$data = ["notification" => "", "success" => ""];
+
+		// Code block executes when a POST array is passed, otherwise just loads page as normal
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			try {
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+				// Validates all input data for incorrect inputs
 				$data = $this->validateCreatePerson($data, $_POST);
 
+				// If an error occurs in validateCreatePerson, data["notification"] will be bigger than 0
 				if (strlen($data["notification"]) < 1) {
-					$result = $this->registerModel->createPerson($_POST);
+
+					// Create person (and the accompanying user and contact rows)
+					$result = $this->userModel->createPerson($_POST);
 
 					if ($result) {
 						$data['notification'] = "Account creëeren succesvol, u wordt binnen 3 seconden herleid";
-						header("Refresh: 3; url=" . URLROOT . "register/login");
+
+						// For making the notification green
+						$data['success'] = "success";
+						header("Refresh: 3; url=" . URLROOT . "user/login");
 					} else {
 						$data['notification'] = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
 					}
@@ -90,24 +99,32 @@ class Register extends Controller
 				$data['notification'] = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op met een admin";
 			}
 		}
-		$this->view('register/register', $data);
+		$this->view('user/register', $data);
 	}
 
 	public function login()
 	{
-		$data = ["notification" => ""];
+		// Initialize variables for future use
+		$data = ["notification" => "" , "success" => ""];
+
+		// Code block executes when a POST array is passed, otherwise just loads page as normal
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			try {
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-				$result = $this->registerModel->findPersonByEmailOrUsername($_POST['userString']);
+				// Look for user with userString, which can be either an email or a username
+				$result = $this->userModel->findPersonByEmailOrUsername($_POST['userString']);
 				if ($result) {
 					if (password_verify($_POST['password'], $result->Password)) {
-						// login
+						// Find userrole by personId
+						$user = $this->userModel->findRoleByPersonId($result->Id);
+
+						// Save variables in global session variable
 						$_SESSION['id'] = $result->Id;
-						var_dump($_SESSION);
-						// $_SESSION["userrole"] = $result->userrole;
+						$_SESSION['role'] = $user->Role;
+
 						$data['notification'] = "Inloggen succesvol, u wordt binnen 3 seconden herleid";
+						$data['success'] = "success";
 
 						header("Refresh: 3; url=" . URLROOT);
 
@@ -122,7 +139,7 @@ class Register extends Controller
 				$data['notification'] = "Er is iets fouts gegaan bij het inloggen, probeer later opnieuw of neem contact op met een admin";
 			}
 		}
-		$this->view('register/login', $data);
+		$this->view('user/login', $data);
 	}
 
 	public function logout()
@@ -138,34 +155,34 @@ class Register extends Controller
 		foreach ($post as $key => $value) {
 			if (empty($value)) {
 				if ($key != "infix") {
-					$data['notification'] = "Not all required fields have been filled in";
+					$data['notification'] = "Niet alle verplichte velden zijn ingevuld";
 					// $data['notification'] = "De '$key' veld is niet ingevuld";
 					return ($data);
 				}
 			}
 		}
 		if (strlen($post['firstname']) > 50)
-			$data['notification'] = "Firstname may not contain more than 50 characters";
+			$data['notification'] = "Voornaam mag niet meer dan 50 karakters bevatten";
 		else if (strlen($post['lastname']) > 50)
-			$data['notification'] = "Lastname may not contain more than 50 characters";
+			$data['notification'] = "Achternaam mag niet meer dan 50 karakters bevatten";
 		else if (strlen($post['username']) > 50)
-			$data['notification'] = "Username may not contain more than 50 characters";
+			$data['notification'] = "Gebruikersnaam mag niet meer dan 50 karakters bevatten";
 		else if (strlen($post['email']) > 50)
-			$data['notification'] = "Email may not contain more than 50 characters";
+			$data['notification'] = "Email mag niet meer dan 50 karakters bevatten";
 		else if (strlen($post['mobile']) > 15)
-			$data['notification'] = "Mobile number may not contain more than 15 characters";
+			$data['notification'] = "Mobiele nummer mag niet meer dan 50 karakters bevatten";
 		else if ($post['password'] != $post['repeat-password'])
-			$data['notification'] = "Repeat password does not match with password";
-		else if (!$post['terms'])
-			$data['notification'] = "Please accept the Terms of Use";
+			$data['notification'] = "De wachtwoorden komen niet overeen";
+		else if (empty($post['terms']))
+			$data['notification'] = "Accepteer de Terms of Use";
 		else if (!filter_var($post['email'], FILTER_VALIDATE_EMAIL))
-			$data['notification'] = "Email is not in correct format";
+			$data['notification'] = "Email is niet in de juiste formaat";
 		else if (!ctype_digit($post['mobile']))
-			$data['notification'] = "Mobile number may only contain numbers";
-		else if ($this->registerModel->findEmail($post['email']))
-			$data['notification'] = "This email has already been used";
-		else if ($this->registerModel->findUsername($post['username']))
-			$data['notification'] = "This username has already been used";
+			$data['notification'] = "Mobiele nummer mag alleen cijfers bevatten";
+		else if ($this->userModel->findEmail($post['email']))
+			$data['notification'] = "Deze email is al in gebruik";
+		else if ($this->userModel->findUsername($post['username']))
+			$data['notification'] = "Deze gebruikersnaam is al in gebruik";
 		return ($data);
 	}
 

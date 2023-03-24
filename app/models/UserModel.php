@@ -1,6 +1,6 @@
 <?php
 
-class RegisterModel
+class UserModel
 {
 
 	private $db;
@@ -48,6 +48,13 @@ class RegisterModel
 	{
 		$this->db->query("CALL spFindPersonByEmailOrUsername(:userString)");
 		$this->db->bind(":userString", $userString, PDO::PARAM_STR);
+		return $this->db->single();
+	}
+
+	public function findRoleByPersonId($personId)
+	{
+		$this->db->query("CALL spFindRoleByPersonId(:personId)");
+		$this->db->bind(":personId", $personId, PDO::PARAM_INT);
 		return $this->db->single();
 	}
 

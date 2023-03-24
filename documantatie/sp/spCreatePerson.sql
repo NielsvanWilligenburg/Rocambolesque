@@ -18,6 +18,7 @@ CREATE PROCEDURE spCreatePerson
 BEGIN
 
     DECLARE personId 	INT UNSIGNED DEFAULT 0;
+    DECLARE userId 		INT UNSIGNED DEFAULT 0;
     
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
 	BEGIN
@@ -28,12 +29,14 @@ BEGIN
 	START TRANSACTION;					
 		INSERT INTO person
 		(
-			 Firstname			
+			 Firstname
+			,Infix
 			,Lastname		
 		)
 		VALUES
 		(
 			 firstname
+			,infix
 			,lastname
 		);
 		
@@ -67,6 +70,16 @@ BEGIN
 			,NULL
 			,NULL
 		);
-               
+        SET userId = LAST_INSERT_ID();
+        INSERT INTO userrole
+		(
+			 UserId
+			,RoleId
+		) 
+		VALUES
+		(
+			 userId
+			,(SELECT Id FROM `role` WHERE `name` = 'guest')
+		);
         COMMIT;	
 END //
