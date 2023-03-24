@@ -127,7 +127,7 @@ CREATE TABLE reservation(
     `PersonId` 			INT 			NOT NULL, 
 	`OpeningtimeId` 	INT				NULL,
     `TableId`			INT				NULL,
-    `Guests`			INT 			NOT NULL,
+    `Guests`			INT   	 		NOT NULL,
     `Children`			INT				NOT NULL,
     `Date`				DATE			NOT NULL,
 	`Time`				TIME 			NOT NULL,
@@ -228,13 +228,13 @@ INSERT INTO openingtime(
 	`Opening`,
     `Closing`)
 VALUES 
-	(1, 'Maandag', '17:00:00', '22:00:00'),
-    (1, 'Dinsdag', '17:00:00', '22:00:00'),
-    (2, 'Woensdag', '17:00:00', '22:00:00'),
-    (1, 'Donderdag', '17:00:00', '22:00:00'),
-    (2, 'Vrijdag', '17:00:00', '22:00:00'),
-    (1, 'Zaterdag', '17:00:00', '22:00:00'),
-    (1, 'Zondag', '17:00:00', '22:00:00');
+	(1, 'Monday', '17:00:00', '22:00:00'),
+    (1, 'Tuesday', '17:00:00', '22:00:00'),
+    (2, 'Wednesday', '17:00:00', '22:00:00'),
+    (1, 'Thursday', '17:00:00', '22:00:00'),
+    (2, 'Friday', '17:00:00', '22:00:00'),
+    (1, 'Saturday', '17:00:00', '22:00:00'),
+    (1, 'Sunday', '17:00:00', '22:00:00');
 
 INSERT INTO `role` (
 	`Name`
@@ -464,4 +464,118 @@ BEGIN
     	SELECT `role`.`Name` AS "Role" FROM user INNER JOIN userrole uro ON user.Id = uro.UserId INNER JOIN `role` ON `role`.Id = uro.RoleId WHERE PersonId = _personId;
                
         COMMIT;	
+END //
+
+
+-- CREATE RESERVATION STORED PROCEDURE
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spCreateReservation;
+
+DELIMITER //
+    
+CREATE PROCEDURE spCreateReservation
+(
+	 personId				int
+	,openingtimeId			int	
+	,tableId				int
+	,guests					int
+	,children				int
+    ,dateReservation		date
+    ,timeReservation 		time
+)
+
+BEGIN
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;					
+		INSERT INTO reservation
+		(
+			 PersonId			
+            ,OpeningtimeId
+            ,TableId
+            ,Guests
+            ,Children
+            ,Date
+            ,Time
+		)
+		VALUES
+		(
+			personId				
+			,openingtimeId			
+			,tableId				
+			,guests					
+			,children				
+			,dateReservation		
+			,timeReservation 		
+		);	
+	COMMIT;
+END //
+
+
+-- FIND TABLE STORED PROCEDURE
+
+USE Rocambolesque;
+
+DROP PROCEDURE IF EXISTS spFindTable;
+
+DELIMITER //
+
+CREATE PROCEDURE spFindTable(
+    guestCheck                    INT,
+    childCheck                    INT,
+    dateCheck                    VARCHAR(10),
+    timeStartCheck                VARCHAR(8)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+    END;
+    
+    START TRANSACTION;
+    SELECT tab.Id
+    FROM `table` tab
+    WHERE MaxGuests >= guestCheck 
+        AND MaxChildren >= childCheck
+        AND Id NOT IN (    SELECT tab.Id
+                        FROM `table` tab 
+                        LEFT JOIN reservation res 
+                        ON res.TableId = tab.Id 
+                        WHERE `Date` = dateCheck
+                            AND timeStartCheck BETWEEN DATE_SUB(`Time`, INTERVAL 2 HOUR) AND DATE_ADD(`Time`, INTERVAL 119 MINUTE))
+    ORDER BY MaxGuests ASC, MaxChildren ASC LIMIT 1;
+    COMMIT;
+END //
+
+-- FIND OPENINGTIME STORED PROCEDURE
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindOpeningtime;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindOpeningtime
+(
+	 dayName				varchar(10)
+)
+
+BEGIN
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;					
+		SELECT ope.id AS Id
+        FROM openingtime ope
+        WHERE ope.day = dayName;
 END //

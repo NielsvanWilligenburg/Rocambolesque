@@ -214,7 +214,9 @@ form div.form div.required::after {
     row-gap: 0.75rem;
   }
 }
-.container, .row, .col {
+.container,
+.row,
+.col {
   display: flex;
 }
 
@@ -225,6 +227,11 @@ form div.form div.required::after {
 .container .row {
   width: 100%;
   flex-wrap: wrap;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
 }
 
 .head {
@@ -372,6 +379,52 @@ form div.form div.buttons div.button a {
     width: 90%;
   }
 }
+div.row {
+  flex-direction: column;
+  align-items: center;
+}
+div.row .heading {
+  padding: 10px;
+  transform: translateX(-25%);
+  white-space: nowrap;
+  background-color: #FFC2C2;
+  box-shadow: 80px 10px #cfbbbb;
+  margin: 100px 0;
+}
+div.row .heading h1 {
+  translate: 40px 5px;
+  font-weight: 200;
+}
+div.row p {
+  margin: 20px;
+  font-size: 150%;
+}
+div.row form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+div.row form div.form {
+  background-color: #ECEEFF;
+  border-radius: 20px;
+  padding: 50px;
+}
+div.row form div.form input {
+  padding: 20px;
+  border: none;
+  width: 400px;
+}
+div.row form div.form div.input-reservation {
+  display: flex;
+  flex-direction: column;
+}
+div.row form button {
+  margin-top: 100px;
+  width: 500px;
+  padding: 10px;
+  color: teal;
+}
+
 body {
   font-family: sans-serif;
 }

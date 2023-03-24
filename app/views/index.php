@@ -5,7 +5,7 @@
 	</p>
 	<br>
 	<button class="main-button">
-		<a href="#" class="button-text">Reserveren</a>
+		<a href="/reservation/createReservation" class="button-text">Reserveren</a>
 	</button>
 </div>
 
