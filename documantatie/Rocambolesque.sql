@@ -228,13 +228,13 @@ INSERT INTO openingtime(
 	`Opening`,
     `Closing`)
 VALUES 
-	(1, 'Maandag', '17:00:00', '22:00:00'),
-    (1, 'Dinsdag', '17:00:00', '22:00:00'),
-    (2, 'Woensdag', '17:00:00', '22:00:00'),
-    (1, 'Donderdag', '17:00:00', '22:00:00'),
-    (2, 'Vrijdag', '17:00:00', '22:00:00'),
-    (1, 'Zaterdag', '17:00:00', '22:00:00'),
-    (1, 'Zondag', '17:00:00', '22:00:00');
+	(1, 'Monday', '17:00:00', '22:00:00'),
+    (1, 'Tuesday', '17:00:00', '22:00:00'),
+    (2, 'Wednesday', '17:00:00', '22:00:00'),
+    (1, 'Thursday', '17:00:00', '22:00:00'),
+    (2, 'Friday', '17:00:00', '22:00:00'),
+    (1, 'Saturday', '17:00:00', '22:00:00'),
+    (1, 'Sunday', '17:00:00', '22:00:00');
 
 INSERT INTO `role` (
 	`Name`
@@ -549,7 +549,7 @@ BEGIN
                         LEFT JOIN reservation res 
                         ON res.TableId = tab.Id 
                         WHERE `Date` = dateCheck
-                            AND timeStartCheck BETWEEN DATE_SUB(`Time`, INTERVAL 2 HOUR) AND DATE_ADD(`Time`, INTERVAL 2 HOUR))
+                            AND timeStartCheck BETWEEN DATE_SUB(`Time`, INTERVAL 2 HOUR) AND DATE_ADD(`Time`, INTERVAL 119 MINUTE))
     ORDER BY MaxGuests ASC, MaxChildren ASC LIMIT 1;
     COMMIT;
 END //
