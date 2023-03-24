@@ -41,4 +41,4 @@ var_dump($data);
     </div>
 </form>
 
-<a href="<?= URLROOT ?>register/delete">delete</a>
+<a href="<?=URLROOT?>user/delete">delete</a>

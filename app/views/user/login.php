@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="col right-side">
-			<form action="<?= URLROOT; ?>register/login" method="post" id="loginForm">
+			<form action="<?= URLROOT; ?>user/login" method="post" id="loginForm">
 				<div class="form login">
 
 					<div class="subtext" id="username">
@@ -23,8 +23,8 @@
 					</div>
 					<div class="buttons">
 						<div id="submit" class="button">
-							<p class="notification"><?= $data['notification'] ?></p>
-							<a class="link-empty submit" onclick="submitForm()">Inloggen</a>
+							<p class="notification <?= $data['success'] ?>"><?= $data['notification'] ?></p>
+							<a class="link-empty submit" type="submit" onclick="submitForm()">Inloggen</a>
 						</div>
 					</div>
 				</div>
