@@ -65,6 +65,7 @@ class RegisterModel
 
 	public function updatePerson($post)
 	{
+	
 		try {
 			$this->db->query("update person as per, contact as con, user as user
 									set per.Firstname = :firstname,
@@ -80,7 +81,7 @@ class RegisterModel
 			$this->db->bind(':lastname', $post['lastname'], PDO::PARAM_STR);
 			$this->db->bind(':username', $post['username'], PDO::PARAM_STR);
 			$this->db->bind(':email', $post['email'], PDO::PARAM_STR);
-			$this->db->bind(':mobile', $post['phoneNumber'], PDO::PARAM_STR);
+			$this->db->bind(':mobile', $post['mobile'], PDO::PARAM_STR);
 			$this->db->bind(':id', $_SESSION['id'], PDO::PARAM_INT);
 			// $this->db->bind(':id', 4, PDO::PARAM_INT);
 			return $this->db->execute();
