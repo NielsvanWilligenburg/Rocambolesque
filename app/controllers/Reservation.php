@@ -9,29 +9,40 @@ class Reservation extends Controller
     }
 
     public function index(){
-
         $this->view('reservation/createReservation');
     }
 
     public function createReservation(){
-        $data = ["notification" => ""];
+        // An array to store the notification messages
+        $data = ["notification" => ""]; 
+
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             try{
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+
+                // Finding the table ID by calling the ReservationModel's findTable method
                 $tableId = $this->reservationModel->findTable($_POST);
+
+                // Finding the opening time ID by calling the dayNameVar method
+                $openingtimeId = $this->dayNameVar($_POST['date']); 
                 
-                $data = $this->validateCreateReservation($data, $_POST, $tableId);
+                // Validating the input data
+                $data = $this->validateCreateReservation($data, $_POST, $tableId); 
                 
                 if (strlen($data["notification"]) < 1) {
-                    $result = $this->reservationModel->createReservation($_POST, $_SESSION['id'], $tableId->Id);
+                    // If the validation is successful, create a new reservation
+                    $result = $this->reservationModel->createReservation($_POST, $_SESSION['id'], $tableId->Id, $openingtimeId->Id);
                     if ($result) {
+                        // If the reservation is successful, set the success notification message
 						$data['notification'] = "Reservation succesfull";
 						header("Refresh: 3; url=" . URLROOT . "reservation/createReservation");
 					} else {
+                        // If there is an error creating the reservation give error message
 						$data['notification'] = "Something went wrong, please try again or contact us.";
 					}
                 }
             } catch (PDOException $e) {
+                // If there is an error, catch the exception and give error message
 				echo $e;
 				$data['notification'] = "Something went wrong, please try again or contact us.";
 			}
@@ -40,6 +51,15 @@ class Reservation extends Controller
             $data['notification'] = 'make a reservation';
         }
         $this->view('reservation/createReservation', $data);
+    }
+ 
+    public function dayNameVar($date){
+        // Helper method to find the day name
+        $i = strtotime($date);
+        $day   = date('d',$i);
+        $month = date('m',$i);
+        $year  = date('Y',$i);
+        return $this->reservationModel->findOpeningtime(date('l', mktime(0, 0, 0, $month, $day, $year)));
     }
 
     public function validateCreateReservation($data, $post, $tableId){
@@ -65,4 +85,5 @@ class Reservation extends Controller
 			$data['notification'] = "No tables available";
 		return($data);
     }
+
 }
