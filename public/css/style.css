@@ -310,6 +310,9 @@ form div.form div.buttons div.button p.notification {
   top: -0.5rem;
   color: red;
 }
+form div.form div.buttons div.button p.notification.success {
+  color: rgb(0, 197, 0);
+}
 form div.form div.buttons div.button a {
   background-color: white;
   width: 100%;
@@ -328,10 +331,12 @@ form div.form div.buttons div.button a {
   .container.login .row .col.left-side {
     flex-direction: column-reverse;
   }
-  .container.login .row .col.left-side div.text, .container.login .row .col.left-side img {
+  .container.login .row .col.left-side div.text,
+  .container.login .row .col.left-side img {
     width: 75%;
   }
-  .container.login .row .col.left-side div.text p, .container.login .row .col.left-side img p {
+  .container.login .row .col.left-side div.text p,
+  .container.login .row .col.left-side img p {
     line-height: 2rem;
   }
   .container.login .row .col.right-side form {
@@ -351,7 +356,8 @@ form div.form div.buttons div.button a {
   }
 }
 @media screen and (max-width: 750px) {
-  .container .row .col.left-side div.text, .container .row .col.left-side img {
+  .container .row .col.left-side div.text,
+  .container .row .col.left-side img {
     width: 70%;
   }
   form div.form.register {
@@ -368,7 +374,8 @@ form div.form div.buttons div.button a {
   }
 }
 @media screen and (max-width: 567px) {
-  .container .row .col.left-side div.text, .container .row .col.left-side img {
+  .container .row .col.left-side div.text,
+  .container .row .col.left-side img {
     width: 90%;
   }
 }

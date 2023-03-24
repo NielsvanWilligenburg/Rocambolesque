@@ -236,6 +236,12 @@ VALUES
     (1, 'Zaterdag', '17:00:00', '22:00:00'),
     (1, 'Zondag', '17:00:00', '22:00:00');
 
+INSERT INTO `role` (
+	`Name`
+) VALUES 
+	('admin'), 
+	('employee'), 
+	('guest');
 
 /**
  *	All the stored procedures below V
@@ -261,6 +267,7 @@ CREATE PROCEDURE spCreatePerson
 BEGIN
 
     DECLARE personId 	INT UNSIGNED DEFAULT 0;
+    DECLARE userId 		INT UNSIGNED DEFAULT 0;
     
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
 	BEGIN
@@ -271,12 +278,14 @@ BEGIN
 	START TRANSACTION;					
 		INSERT INTO person
 		(
-			 Firstname			
+			 Firstname
+			,Infix
 			,Lastname		
 		)
 		VALUES
 		(
 			 firstname
+			,infix
 			,lastname
 		);
 		
@@ -310,7 +319,17 @@ BEGIN
 			,NULL
 			,NULL
 		);
-               
+        SET userId = LAST_INSERT_ID();
+        INSERT INTO userrole
+		(
+			 UserId
+			,RoleId
+		) 
+		VALUES
+		(
+			 userId
+			,(SELECT Id FROM `role` WHERE `name` = 'guest')
+		);
         COMMIT;	
 END //
 
@@ -418,6 +437,31 @@ BEGIN
             
 	START TRANSACTION;
     	SELECT * FROM user WHERE Username = usernameCheck;
+               
+        COMMIT;	
+END //
+
+
+USE Rocambolesque;
+DROP PROCEDURE IF EXISTS spFindRoleByPersonId;
+
+DELIMITER //
+    
+CREATE PROCEDURE spFindRoleByPersonId
+(
+	 _personId				INT
+)
+
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+    	ROLLBACK;
+    	SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+            
+	START TRANSACTION;
+    	SELECT `role`.`Name` AS "Role" FROM user INNER JOIN userrole uro ON user.Id = uro.UserId INNER JOIN `role` ON `role`.Id = uro.RoleId WHERE PersonId = _personId;
                
         COMMIT;	
 END //
