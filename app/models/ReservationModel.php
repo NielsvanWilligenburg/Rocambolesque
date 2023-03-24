@@ -34,4 +34,17 @@ class ReservationModel{
         $this->db->bind(':dayName', $dayName, PDO::PARAM_STR);
         return $this->db->single();
     }
+
+	public function getReservationsByPersonId($id)
+	{
+		$this->db->query("CALL spGetReservationsByPersonId(:id)");
+        $this->db->bind(':id', $id, PDO::PARAM_INT);
+        return $this->db->resultSet();
+	}
+
+	public function getReservations()
+	{
+		$this->db->query("SELECT * FROM vwGetReservations");
+        return $this->db->resultSet();
+	}
 }

@@ -53,6 +53,31 @@ class Reservation extends Controller
         $this->view('reservation/createReservation', $data);
     }
  
+	public function reservations($id = null)
+	{
+		$result = "";
+		// When id is null, try to access all reservations, if id is set, gets reservations of personId
+		if ($id)
+		{
+			$result = $this->reservationModel->getReservationsByPersonId($id);
+			if (!$result)
+			{
+				
+			}
+		} else
+		{
+			$result = $this->reservationModel->getReservations($id);
+			if (!$result)
+			{
+
+			}
+		}
+			
+		$data = ["reservations" => $result];
+
+		$this->view('reservation/reservations', $data);
+	}
+
     public function dayNameVar($date){
         // Helper method to find the day name
         $i = strtotime($date);
