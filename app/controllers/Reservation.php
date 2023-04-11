@@ -53,20 +53,24 @@ class Reservation extends Controller
         $this->view('reservation/createReservation', $data);
     }
  
-	public function reservations($id = null)
+	public function reservations()
 	{
+		// Checks if user is logged in
+		if (!isset($_SESSION['role']) || !isset($_SESSION['id']))
+			header("Location: " . URLROOT);
+
 		$result = "";
-		// When id is null, try to access all reservations, if id is set, gets reservations of personId
-		if ($id)
+		// When role is guest, get all reservations from personId, if not guest -> admin or employee is logged in and get all reservations
+		if ($_SESSION['role'] == "guest")
 		{
-			$result = $this->reservationModel->getReservationsByPersonId($id);
+			$result = $this->reservationModel->getReservationsByPersonId($_SESSION['id']);
 			if (!$result)
 			{
 				
 			}
 		} else
 		{
-			$result = $this->reservationModel->getReservations($id);
+			$result = $this->reservationModel->getReservations();
 			if (!$result)
 			{
 
