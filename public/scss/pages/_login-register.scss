@@ -13,9 +13,18 @@
   }
 }
 
-.container.login {
-  .row {
-    .col {
+.login-container {
+  display: flex;
+  width: 100%;
+  margin: auto 0;
+  .panels {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    .panel {
+      display: flex;
+      flex-direction: column;
+      display: flex;
       flex-direction: column;
       align-items: center;
       width: 50%;
@@ -104,10 +113,10 @@ form {
   .head {
     height: 10vh;
   }
-  .container.login {
-    .row {
+  .login-container {
+    .panels {
       flex-direction: column-reverse;
-      .col {
+      .panel {
         width: 100%;
         &.left-side {
           flex-direction: column-reverse;
@@ -148,7 +157,7 @@ form {
 }
 
 @media screen and (max-width: 750px) {
-  .container .row .col {
+  .container .panels .panel {
     &.left-side {
       div.text,
       img {
@@ -171,7 +180,7 @@ form {
 }
 
 @media screen and (max-width: 567px) {
-  .container .row .col {
+  .container .panels .panel {
     &.left-side {
       div.text,
       img {

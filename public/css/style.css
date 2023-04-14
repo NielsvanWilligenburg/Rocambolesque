@@ -247,31 +247,44 @@ form div.form div.required::after {
   padding: 2rem;
 }
 
-.container.login .row .col {
+.login-container {
+  display: flex;
+  width: 100%;
+  margin: auto 0;
+}
+.login-container .panels {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.login-container .panels .panel {
+  display: flex;
+  flex-direction: column;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
 }
-.container.login .row .col img {
+.login-container .panels .panel img {
   object-fit: cover;
   width: 100%;
   padding: 0.5rem;
   aspect-ratio: 2/1;
 }
-.container.login .row .col.left-side {
+.login-container .panels .panel.left-side {
   row-gap: 1rem;
   margin: 2rem 0;
   justify-content: center;
 }
-.container.login .row .col.left-side .text {
+.login-container .panels .panel.left-side .text {
   width: 80%;
 }
-.container.login .row .col.left-side .text p {
+.login-container .panels .panel.left-side .text p {
   font-size: 1.5rem;
   text-align: center;
   line-height: 3rem;
 }
-.container.login .row .col.right-side {
+.login-container .panels .panel.right-side {
   justify-content: center;
   background-color: #D89E6B;
 }
@@ -322,24 +335,24 @@ form div.form div.buttons div.button a {
   .head {
     height: 10vh;
   }
-  .container.login .row {
+  .login-container .panels {
     flex-direction: column-reverse;
   }
-  .container.login .row .col {
+  .login-container .panels .panel {
     width: 100%;
   }
-  .container.login .row .col.left-side {
+  .login-container .panels .panel.left-side {
     flex-direction: column-reverse;
   }
-  .container.login .row .col.left-side div.text,
-  .container.login .row .col.left-side img {
+  .login-container .panels .panel.left-side div.text,
+  .login-container .panels .panel.left-side img {
     width: 75%;
   }
-  .container.login .row .col.left-side div.text p,
-  .container.login .row .col.left-side img p {
+  .login-container .panels .panel.left-side div.text p,
+  .login-container .panels .panel.left-side img p {
     line-height: 2rem;
   }
-  .container.login .row .col.right-side form {
+  .login-container .panels .panel.right-side form {
     padding: 2rem 0;
   }
   form div.form label {
@@ -356,8 +369,8 @@ form div.form div.buttons div.button a {
   }
 }
 @media screen and (max-width: 750px) {
-  .container .row .col.left-side div.text,
-  .container .row .col.left-side img {
+  .container .panels .panel.left-side div.text,
+  .container .panels .panel.left-side img {
     width: 70%;
   }
   form div.form.register {
@@ -374,8 +387,8 @@ form div.form div.buttons div.button a {
   }
 }
 @media screen and (max-width: 567px) {
-  .container .row .col.left-side div.text,
-  .container .row .col.left-side img {
+  .container .panels .panel.left-side div.text,
+  .container .panels .panel.left-side img {
     width: 90%;
   }
 }

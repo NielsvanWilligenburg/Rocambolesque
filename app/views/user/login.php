@@ -1,15 +1,15 @@
 <div class="head login">
 	<h1>Inloggen</h1>
 </div>
-<div class="container login">
-	<div class="row">
-		<div class="col left-side">
+<div class="login-container">
+	<div class="panels">
+		<div class="panel left-side">
 			<img src="../../../public/images/burger.jpg" alt="">
 			<div class="text">
 				<p>A contemporery menu of seasonal dishes from around the world</p>
 			</div>
 		</div>
-		<div class="col right-side">
+		<div class="panel right-side">
 			<form action="<?= URLROOT; ?>user/login" method="post" id="loginForm">
 				<div class="form login">
 
