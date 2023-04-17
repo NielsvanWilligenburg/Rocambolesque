@@ -1,10 +1,8 @@
 <div class="head">
     <h1><?= $data['title'] ?></h1>
 </div>
-<?php
-var_dump($data);
-?>
-<form action="<?= URLROOT ?>register/update" method="post">
+
+<form action="<?= URLROOT ?>user/update" method="post">
     <div class="form register">
 
         <div class="name">
@@ -28,6 +26,8 @@ var_dump($data);
         <div class="required">
             <input type="text" name="mobile" placeholder="Phone number" maxlength="15" value="<?= $data['mobile'] ?>">
         </div>
+
+        <p><?php echo $data['notification'] ?></p>
 
 
         <div class="buttons">

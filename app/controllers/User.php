@@ -21,39 +21,65 @@ class User extends Controller
 
 	public function update()
 	{
-		// Check if the request method is POST, and sanitize the POST variables
+
+		$notification = "";
+
+		// If the request method is POST, update the user data in the database and redirect to the update page
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			// Filter de POST variabelen
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-			// If the length of the username is greater than 16 characters, display an error message and redirect after 3 seconds
-			if (strlen($_POST['username']) > 16) {
-				echo "Username is te lang, maximaal 16 karakters";
-				header("Refresh: 3; url=" . URLROOT . "user/update");
-			} else {
-				// If the length of the username is less than or equal to 16 characters, update the user data in the database and redirect to the update page
-				$this->userModel->updatePerson($_POST);
+			$data = [];
 
-				header("Location: " . URLROOT . "/user/update");
-			}
-		} else {
-			// If the request method is not POST, retrieve the user data and pass it to the update page
 			$person = $this->userModel->findPersonById($_SESSION['id']);
 
-			// Create an array with the user data
-			$data = [
-				'title' => 'Profile',
-				'firstname' => $person->Firstname,
-				'infix' => $person->Infix,
-				'lastname' => $person->Lastname,
-				'username' => $person->Username,
-				'email' => $person->Email,
-				'mobile' => $person->Mobile
-			];
+			$data += $this->validateUpdatePerson($data, $_POST);
 
-			// Pass the data to the update page
-			$this->view('user/update', $data);
+			if ($person->Username != $_POST['username']) {
+				echo "username is different";
+				$data += $this->validateUsername($data, $_POST);
+			}
+
+			if ($person->Email != $_POST['email']) {
+				echo "email is different";
+				$data += $this->validateEmail($data, $_POST);
+			}
+
+
+
+			if (array_key_exists("notification", $data)) {
+				$notification = $data["notification"];
+			}
+
+			if (!array_key_exists("notification", $data)) {
+				$result = $this->userModel->updatePerson($_POST);
+
+				if ($result) {
+					$notification = "Account updaten succesvol, u wordt binnen 3 seconden herleid";
+					header("Refresh: 3; url=" . URLROOT . "user/update");
+				} else {
+					$notification = "Er is iets fouts gegaan bij het creëeren van een account, probeer later opnieuw of neem contact op";
+				}
+			}
 		}
+		// If the request method is not POST, retrieve the user data and pass it to the update page
+		$person = $this->userModel->findPersonById($_SESSION['id']);
+
+
+
+		// Create an array with the user data
+		$data = [
+			'title' => 'Profile',
+			'firstname' => $person->Firstname,
+			'infix' => $person->Infix,
+			'lastname' => $person->Lastname,
+			'username' => $person->Username,
+			'email' => $person->Email,
+			'mobile' => $person->Mobile,
+			'notification' => $notification
+		];
+
+		// Pass the array to the update page
+		$this->view('user/update', $data);
 	}
 
 	public function delete()
@@ -105,7 +131,7 @@ class User extends Controller
 	public function login()
 	{
 		// Initialize variables for future use
-		$data = ["notification" => "" , "success" => ""];
+		$data = ["notification" => "", "success" => ""];
 
 		// Code block executes when a POST array is passed, otherwise just loads page as normal
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -127,7 +153,6 @@ class User extends Controller
 						$data['success'] = "success";
 
 						header("Refresh: 3; url=" . URLROOT);
-
 					} else {
 						$data['notification'] = "Incorrecte inloggegevens";
 					}
@@ -152,37 +177,58 @@ class User extends Controller
 
 	private function validateCreatePerson($data, $post)
 	{
+		if ($post['password'] != $post['repeat-password'])
+			$data['notification'] = "Repeat password does not match with password";
+		else if (!$post['terms'])
+			$data['notification'] = "Please accept the Terms of Use";
+		else {
+			$data = $this->validateUpdatePerson($data, $post);
+		}
+
+		return ($data);
+	}
+
+	private function validateUsername($data, $post)
+	{
+		if ($this->userModel->findUsername($post['username'])) {
+			$data['notification'] = "This username has already been used";
+		}
+		return ($data);
+	}
+
+	private function validateEmail($data, $post)
+	{
+		if ($this->userModel->findEmail($post['email'])) {
+			$data['notification'] = "This email has already been used";
+		}
+		return ($data);
+	}
+
+	private function validateUpdatePerson($data, $post)
+	{
 		foreach ($post as $key => $value) {
 			if (empty($value)) {
 				if ($key != "infix") {
-					$data['notification'] = "Niet alle verplichte velden zijn ingevuld";
+					$data['notification'] = "Not all required fields have been filled in";
 					// $data['notification'] = "De '$key' veld is niet ingevuld";
 					return ($data);
 				}
 			}
 		}
 		if (strlen($post['firstname']) > 50)
-			$data['notification'] = "Voornaam mag niet meer dan 50 karakters bevatten";
+			$data['notification'] = "Firstname may not contain more than 50 characters";
 		else if (strlen($post['lastname']) > 50)
-			$data['notification'] = "Achternaam mag niet meer dan 50 karakters bevatten";
+			$data['notification'] = "Lastname may not contain more than 50 characters";
 		else if (strlen($post['username']) > 50)
-			$data['notification'] = "Gebruikersnaam mag niet meer dan 50 karakters bevatten";
+			$data['notification'] = "Username may not contain more than 50 characters";
 		else if (strlen($post['email']) > 50)
-			$data['notification'] = "Email mag niet meer dan 50 karakters bevatten";
+			$data['notification'] = "Email may not contain more than 50 characters";
 		else if (strlen($post['mobile']) > 15)
-			$data['notification'] = "Mobiele nummer mag niet meer dan 50 karakters bevatten";
-		else if ($post['password'] != $post['repeat-password'])
-			$data['notification'] = "De wachtwoorden komen niet overeen";
-		else if (empty($post['terms']))
-			$data['notification'] = "Accepteer de Terms of Use";
+			$data['notification'] = "Mobile number may not contain more than 15 characters";
 		else if (!filter_var($post['email'], FILTER_VALIDATE_EMAIL))
-			$data['notification'] = "Email is niet in de juiste formaat";
+			$data['notification'] = "Email is not in correct format";
 		else if (!ctype_digit($post['mobile']))
-			$data['notification'] = "Mobiele nummer mag alleen cijfers bevatten";
-		else if ($this->userModel->findEmail($post['email']))
-			$data['notification'] = "Deze email is al in gebruik";
-		else if ($this->userModel->findUsername($post['username']))
-			$data['notification'] = "Deze gebruikersnaam is al in gebruik";
+			$data['notification'] = "Mobile number may only contain numbers";
 		return ($data);
 	}
 
